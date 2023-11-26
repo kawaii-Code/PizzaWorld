@@ -6,17 +6,19 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Terraria.GameContent.Animations;
 
 namespace PizzaWorld.NPCs;
 
 public class PizzaGuideNPC : ModNPC
 {
-    public override void SetStaticDefaults()
+    public override void SetDefaults()
     {
         NPC.CloneDefaults(NPCID.Guide);
         NPC.friendly = true;
+        Instance = this;
     }
+
+    public static PizzaGuideNPC Instance;
 
     public override string GetChat()
     {
@@ -46,10 +48,10 @@ public class PizzaGuideNPC : ModNPC
         base.OnSpawn(source);
         ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPC.type} spawned"), Color.Blue);
     }
-
-    public static void SpawnNPC()
+    
+    public void SpawnNPC()
     {
-        NPC.NewNPC(new EntitySource_SpawnNPC(), (int)Main.player[0].position.X,
+        NPC.NewNPC(new EntitySource_Parent(Entity), (int)Main.player[0].position.X,
             (int)Main.player[0].position.Y, ModContent.NPCType<PizzaGuideNPC>());
     }
     
