@@ -11,5 +11,7 @@ public class ModEntry : ModSystem
     {
         if(Main.keyState.IsKeyDown(Keys.G))
             PizzaGuideNPC.Instance.SpawnNPC();
+        
+        
     }
 }
