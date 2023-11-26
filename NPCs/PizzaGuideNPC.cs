@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace PizzaWorld.NPCs;
 
@@ -41,7 +42,7 @@ public class PizzaGuideNPC : ModNPC
 
     public override void OnSpawn(IEntitySource source)
     {
-        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPC.type}"), Color.Red);
+        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPC.type}"), Color.Blue);
     }
 
     /*public override bool CanTownNPCSpawn(int numTownNPCs)
