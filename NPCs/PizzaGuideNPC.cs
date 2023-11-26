@@ -19,6 +19,30 @@ public class PizzaGuideNPC : ModNPC
     }
 
     public static PizzaGuideNPC Instance;
+    
+    // 🤔🤔🤔
+    private static void SpawnNPC(int type, bool syncData = false, int syncID = 0, int whoAmI = 0)
+    {
+        Player player;
+        if (!syncData)
+        {
+            player = Main.LocalPlayer;
+        }
+        else
+        {
+            player = Main.player[whoAmI];
+        }
+        int x = (int)player.Bottom.X + player.direction * 200;
+        int y = (int)player.Bottom.Y;
+        int index = NPC.NewNPC(NPC.GetSource_NaturalSpawn(), x, y, type);
+        if (syncID < 0)
+        {
+            //NPC refNPC = new NPC();
+            //refNPC.netDefaults(syncID);
+            Main.npc[index].SetDefaults(syncID);
+        }
+    }
+
 
     public override string GetChat()
     {

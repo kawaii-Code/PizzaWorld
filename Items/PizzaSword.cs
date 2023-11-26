@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using PizzaWorld.NPCs;
 
 namespace PizzaWorld.Items;
 
@@ -32,7 +33,8 @@ public class PizzaSword : ModItem
     }
 
     public override void OnCatchNPC(NPC npc, Player player, bool failed)
-    {
+    {;
+        PizzaGuideNPC.Instance.SpawnNPC();
         ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Hello"), Color.Aqua);
     }
 
