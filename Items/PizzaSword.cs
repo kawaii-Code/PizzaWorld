@@ -1,6 +1,9 @@
 using Terraria;
+using Terraria.Chat;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace PizzaWorld.Items
 {
@@ -22,6 +25,12 @@ namespace PizzaWorld.Items
             Item.rare = 2;
             Item.UseSound = SoundID.Item1;
             Item.autoReuse = true;
+            ItemID.Sets.CatchingTool[Type] = true;
+        }
+
+        public override void OnCatchNPC(NPC npc, Player player, bool failed)
+        {
+            ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Hello"), Color.Aqua);
         }
 
         public override void AddRecipes()

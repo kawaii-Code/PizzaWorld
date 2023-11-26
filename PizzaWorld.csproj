@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\tModLoader.targets" />
+  <Import Project="tModLoader.targets" />
   <PropertyGroup>
     <AssemblyName>PizzaWorld</AssemblyName>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,21 +8,10 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MonoMod" Version="22.7.31.1" />
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Xna.Framework">
-      <HintPath>Libraries\Microsoft.Xna.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Game">
-      <HintPath>Libraries\Microsoft.Xna.Framework.Game.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Graphics">
-      <HintPath>Libraries\Microsoft.Xna.Framework.Graphics.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Xact">
-      <HintPath>Libraries\Microsoft.Xna.Framework.Xact.dll</HintPath>
-    </Reference>
     <Reference Include="ReLogic">
       <HintPath>Libraries\ReLogic.dll</HintPath>
     </Reference>
