@@ -10,8 +10,6 @@ public class ModEntry : ModSystem
     public override void PostUpdateWorld()
     {
         if(Main.keyState.IsKeyDown(Keys.G))
-            PizzaGuideNPC.Instance.SpawnNPC();
-        
-        
+            PizzaGuideNPC.Instance.SpawnChubK(Main.LocalPlayer);
     }
 }

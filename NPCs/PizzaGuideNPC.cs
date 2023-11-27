@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using log4net.Repository.Hierarchy;
 using Terraria;
 using Terraria.Chat;
 using Terraria.DataStructures;
@@ -21,29 +22,25 @@ public class PizzaGuideNPC : ModNPC
     public static PizzaGuideNPC Instance;
     
     // 🤔🤔🤔
-    private static void SpawnNPC(int type, bool syncData = false, int syncID = 0, int whoAmI = 0)
+    public void SpawnChubK(Player invoker, bool syncData = false, int syncID = 0)
     {
-        Player player;
-        if (!syncData)
-        {
-            player = Main.LocalPlayer;
-        }
-        else
-        {
-            player = Main.player[whoAmI];
-        }
-        int x = (int)player.Bottom.X + player.direction * 200;
-        int y = (int)player.Bottom.Y;
-        int index = NPC.NewNPC(NPC.GetSource_NaturalSpawn(), x, y, type);
-        if (syncID < 0)
-        {
-            //NPC refNPC = new NPC();
-            //refNPC.netDefaults(syncID);
+        if(Main.netMode == NetmodeID.MultiplayerClient)
+            return;
+       
+        int x = (int)invoker.Bottom.X + invoker.direction * 3;
+        int y = (int)invoker.Bottom.Y;
+        
+        int index = NPC.NewNPC(NPC.GetSource_NaturalSpawn(), x, y, ModContent.NPCType<PizzaGuideNPC>());
+        
+        if (syncID < 0) 
             Main.npc[index].SetDefaults(syncID);
+
+        if (Main.netMode == NetmodeID.Server) {
+            NetMessage.SendData(MessageID.SyncNPC, number: Main.npc[index].type);
+            
         }
     }
-
-
+    
     public override string GetChat()
     {
         var player = Main.player.FirstOrDefault(player => player.name == "Chub");
@@ -73,11 +70,11 @@ public class PizzaGuideNPC : ModNPC
         ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPC.type} spawned"), Color.Blue);
     }
     
-    public void SpawnNPC()
+    /*public void SpawnNPC()
     {
         NPC.NewNPC(new EntitySource_Parent(Entity), (int)Main.player[0].position.X,
             (int)Main.player[0].position.Y, ModContent.NPCType<PizzaGuideNPC>());
-    }
+    }*/
     
     /*public override bool CanTownNPCSpawn(int numTownNPCs)
     {
