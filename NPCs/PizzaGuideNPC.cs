@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using ChubK.Utilities;
 using log4net.Repository.Hierarchy;
 using Terraria;
@@ -8,6 +9,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using PizzaWorld.Data;
 
 namespace PizzaWorld.NPCs;
 
@@ -16,43 +18,13 @@ public class PizzaGuideNPC : ModNPC
     public override void SetDefaults()
     {
         NPC.CloneDefaults(NPCID.Guide);
-        NPC.friendly = true;
+        NPC.friendly = false;
+        NPC.damage = 20;
+        
     }
-    
-    #if false
-    // 🤔🤔🤔
-    public void SpawnChubK(Player invoker, bool syncData = false, int syncID = 0)
-    {
-        Debug.Log(invoker.name);
-        
-        /*if(Main.netMode == NetmodeID.MultiplayerClient)
-            return;*/
-        
-        int x = (int)invoker.position.X;
-        int y = (int)invoker.position.Y;
-        
-        int index = NPC.NewNPC(NPC.GetSource_NaturalSpawn(), x, y, ModContent.NPCType<PizzaGuideNPC>());
-        
-        if (syncID < 0) 
-            Main.npc[index].SetDefaults(syncID);
-        
-        NPC.netUpdate = true;
-        NetMessage.SendData(MessageID.SyncNPC, number: Main.npc[index].type);
-
-        
-        /*if (Main.netMode == NetmodeID.Server) {
-            
-        }*/
-    }
-    #endif
 
     public override string GetChat()
     {
-        var player = Main.player.FirstOrDefault(player => player.name == "Chub");
-
-        if (player != null)
-            return "I smell pizza";
-
         switch (Main.rand.Next(4))
         {
             case 0:
@@ -67,6 +39,36 @@ public class PizzaGuideNPC : ModNPC
             default:
                 return "Chub_k";
         }
+    }
+
+    public override void SetChatButtons(ref string button, ref string button2)
+    {
+        button = "Get pizza recipe";
+        button2 = "Get advice";
+    }
+
+    public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+    {
+        if (firstButton)
+        {
+            switch (Main.rand.Next(3))
+            {
+                case 0:
+                    Main.npcChatText = PizzaRecipes.PepperoniRecipe;
+                    break;
+                
+                case 1: 
+                    Main.npcChatText = PizzaRecipes.FourCheeseRecipe;
+                    break;
+                
+                default:
+                    Main.npcChatText = "Idi v zad";
+                    break;
+            }
+            return;
+        }
+
+        Main.npcChatText = "Кто прочитал тот лох";
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -87,5 +89,4 @@ public class PizzaGuideNPC : ModNPC
         packet.Write(npc.NPC.netID);
         packet.Send();
     }
-   
 }

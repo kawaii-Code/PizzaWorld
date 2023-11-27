@@ -41,6 +41,4 @@ public class PizzaWorld : Mod
             spawnedNpc.SetDefaults(netId);
         }
     }
-    
-    
 }
