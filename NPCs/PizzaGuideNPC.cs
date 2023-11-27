@@ -1,7 +1,3 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using ChubK.Utilities;
-using log4net.Repository.Hierarchy;
 using Terraria;
 using Terraria.Chat;
 using Terraria.DataStructures;
@@ -20,9 +16,8 @@ public class PizzaGuideNPC : ModNPC
         NPC.CloneDefaults(NPCID.Guide);
         NPC.friendly = false;
         NPC.damage = 20;
-        
     }
-
+    
     public override string GetChat()
     {
         switch (Main.rand.Next(4))
@@ -75,18 +70,5 @@ public class PizzaGuideNPC : ModNPC
     {
         base.OnSpawn(source);
         ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPC.type} spawned"), Color.Blue);
-    }
-    
-    public static void SendSpawnNPCRequest()
-    {
-        if(Main.netMode == NetmodeID.SinglePlayer)
-            return;
-        
-        ModPacket packet = PizzaWorld.Instance.GetPacket();
-        ModNPC npc = ModContent.GetModNPC(ModContent.NPCType<PizzaGuideNPC>());
-        packet.Write(0);
-        packet.Write(npc.Type);
-        packet.Write(npc.NPC.netID);
-        packet.Send();
     }
 }
