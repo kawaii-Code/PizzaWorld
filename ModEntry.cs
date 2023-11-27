@@ -1,15 +1,18 @@
-﻿using Microsoft.Xna.Framework.Input;
-using PizzaWorld.NPCs;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace PizzaWorld;
 
 public class ModEntry : ModSystem
 {
-    public override void PostUpdateWorld()
+    public ModKeybind SpawnBind;
+    
+    public override void Load()
     {
-        if(Main.keyState.IsKeyDown(Keys.G))
-            PizzaGuideNPC.Instance.SpawnChubK(Main.LocalPlayer);
+        SpawnBind = KeybindLoader.RegisterKeybind(Mod, "Spawn Pizza NPC", "P");
+    }
+    
+    public override void Unload()
+    {
+        SpawnBind = null;
     }
 }

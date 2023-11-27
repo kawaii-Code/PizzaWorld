@@ -34,7 +34,7 @@ public class PizzaSword : ModItem
 
     public override void OnCatchNPC(NPC npc, Player player, bool failed)
     {
-        PizzaGuideNPC.Instance.SpawnChubK(player);   
+        PizzaGuideNPC.SpawnNPC();
         ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("Hello"), Color.Aqua);
     }
 

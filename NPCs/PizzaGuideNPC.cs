@@ -17,11 +17,9 @@ public class PizzaGuideNPC : ModNPC
     {
         NPC.CloneDefaults(NPCID.Guide);
         NPC.friendly = true;
-        Instance = this;
     }
-
-    public static PizzaGuideNPC Instance;
     
+    #if false
     // 🤔🤔🤔
     public void SpawnChubK(Player invoker, bool syncData = false, int syncID = 0)
     {
@@ -46,13 +44,12 @@ public class PizzaGuideNPC : ModNPC
             
         }*/
     }
-    
+    #endif
+
     public override string GetChat()
     {
         var player = Main.player.FirstOrDefault(player => player.name == "Chub");
 
-        
-        
         if (player != null)
             return "I smell pizza";
 
@@ -78,20 +75,13 @@ public class PizzaGuideNPC : ModNPC
         ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPC.type} spawned"), Color.Blue);
     }
     
-    /*public void SpawnNPC()
+    public static void SpawnNPC()
     {
-        NPC.NewNPC(new EntitySource_Parent(Entity), (int)Main.player[0].position.X,
-            (int)Main.player[0].position.Y, ModContent.NPCType<PizzaGuideNPC>());
-    }*/
-    
-    /*public override bool CanTownNPCSpawn(int numTownNPCs)
-    {
-        for (int i = 0; i < 255; i++)
-        {
-            Player player = Main.player[i];
-
-            if (player.active == false)
-                continue;
-        }
-    }*/
+        ModPacket packet = PizzaWorld.Instance.GetPacket();
+        ModNPC npc = ModContent.GetModNPC(ModContent.NPCType<PizzaGuideNPC>());
+        packet.Write(0);
+        packet.Write(npc.Type);
+        packet.Write(npc.NPC.netID);
+        packet.Send();
+    }
 }
