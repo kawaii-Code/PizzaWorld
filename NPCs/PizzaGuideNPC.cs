@@ -75,8 +75,11 @@ public class PizzaGuideNPC : ModNPC
         ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPC.type} spawned"), Color.Blue);
     }
     
-    public static void SpawnNPC()
+    public static void SendSpawnNPCRequest()
     {
+        if(Main.netMode == NetmodeID.SinglePlayer)
+            return;
+        
         ModPacket packet = PizzaWorld.Instance.GetPacket();
         ModNPC npc = ModContent.GetModNPC(ModContent.NPCType<PizzaGuideNPC>());
         packet.Write(0);
@@ -84,4 +87,5 @@ public class PizzaGuideNPC : ModNPC
         packet.Write(npc.NPC.netID);
         packet.Send();
     }
+   
 }
