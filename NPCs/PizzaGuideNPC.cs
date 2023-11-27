@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ChubK.Utilities;
 using log4net.Repository.Hierarchy;
 using Terraria;
 using Terraria.Chat;
@@ -24,27 +25,34 @@ public class PizzaGuideNPC : ModNPC
     // 🤔🤔🤔
     public void SpawnChubK(Player invoker, bool syncData = false, int syncID = 0)
     {
-        if(Main.netMode == NetmodeID.MultiplayerClient)
-            return;
-       
-        int x = (int)invoker.Bottom.X + invoker.direction * 3;
-        int y = (int)invoker.Bottom.Y;
+        Debug.Log(invoker.name);
+        
+        /*if(Main.netMode == NetmodeID.MultiplayerClient)
+            return;*/
+        
+        int x = (int)invoker.position.X;
+        int y = (int)invoker.position.Y;
         
         int index = NPC.NewNPC(NPC.GetSource_NaturalSpawn(), x, y, ModContent.NPCType<PizzaGuideNPC>());
         
         if (syncID < 0) 
             Main.npc[index].SetDefaults(syncID);
+        
+        NPC.netUpdate = true;
+        NetMessage.SendData(MessageID.SyncNPC, number: Main.npc[index].type);
 
-        if (Main.netMode == NetmodeID.Server) {
-            NetMessage.SendData(MessageID.SyncNPC, number: Main.npc[index].type);
+        
+        /*if (Main.netMode == NetmodeID.Server) {
             
-        }
+        }*/
     }
     
     public override string GetChat()
     {
         var player = Main.player.FirstOrDefault(player => player.name == "Chub");
 
+        
+        
         if (player != null)
             return "I smell pizza";
 
