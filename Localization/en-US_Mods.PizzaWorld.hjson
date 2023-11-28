@@ -10,6 +10,16 @@ Items: {
 		DisplayName: Pizza Axe
 		Tooltip: ""
 	}
+
+	PizzaStaff: {
+		DisplayName: Pizza Staff
+		Tooltip: ""
+	}
+
+	PizzaGuitar: {
+		DisplayName: Pizza Guitar
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -27,6 +37,8 @@ NPCs: {
 			Princess_LovesNPC: I like {NPCName}.
 		}
 	}
+
+	ZombizzaNPC.DisplayName: Zombizza N P C
 }
 
 "Keybinds.Spawn Pizza NPC.DisplayName": Spawn  Pizza  N P C
