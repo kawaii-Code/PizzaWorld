@@ -2,7 +2,7 @@
 using Terraria.Chat;
 using Terraria.Localization;
 
-namespace ChubK.Utilities;
+namespace PizzaWorld.Code.Utilities;
 
 public static class Debug
 {

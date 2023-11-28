@@ -1,4 +1,4 @@
-﻿namespace PizzaWorld.Data;
+﻿namespace PizzaWorld.Code.Data;
 
 public struct PizzaRecipes
 {

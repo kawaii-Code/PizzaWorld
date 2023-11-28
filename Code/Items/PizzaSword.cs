@@ -1,9 +1,9 @@
+using PizzaWorld.Code.NPCs;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using PizzaWorld.NPCs;
 
-namespace PizzaWorld.Items;
+namespace PizzaWorld.Code.Items;
 
 public class PizzaSword : ModItem
 {

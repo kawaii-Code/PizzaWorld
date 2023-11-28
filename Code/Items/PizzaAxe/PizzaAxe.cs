@@ -1,7 +1,7 @@
 ﻿using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace PizzaWorld.Items.PizzaAxe;
+namespace PizzaWorld.Code.Items.PizzaAxe;
 
 public class PizzaAxe : ModItem
 {

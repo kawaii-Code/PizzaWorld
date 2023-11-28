@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace PizzaWorld;
+namespace PizzaWorld.Code.Systems;
 
 public class ModEntry : ModSystem
 {

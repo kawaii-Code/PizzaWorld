@@ -1,13 +1,13 @@
+using Microsoft.Xna.Framework;
+using PizzaWorld.Code.Data;
 using Terraria;
 using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using PizzaWorld.Data;
 
-namespace PizzaWorld.NPCs;
+namespace PizzaWorld.Code.NPCs;
 
 public class PizzaGuideNPC : ModNPC
 {
