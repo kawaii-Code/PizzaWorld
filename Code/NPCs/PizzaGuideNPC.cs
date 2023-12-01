@@ -11,6 +11,11 @@ namespace PizzaWorld.Code.NPCs;
 
 public class PizzaGuideNPC : ModNPC
 {
+   public override void SetStaticDefaults()
+   {
+      Main.npcFrameCount[Type] = Main.npcFrameCount[NPCID.Guide];
+   }
+   
     public override void SetDefaults()
     {
         NPC.CloneDefaults(NPCID.Guide);
