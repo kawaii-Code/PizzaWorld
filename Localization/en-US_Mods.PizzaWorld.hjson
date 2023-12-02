@@ -35,6 +35,16 @@ Items: {
 		DisplayName: Pizza Pickaxe
 		Tooltip: ""
 	}
+
+	PizzaHoverboard: {
+		DisplayName: Pizza Hoverboard
+		Tooltip: ""
+	}
+
+	PizzaWings: {
+		DisplayName: Pizza Wings
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -56,6 +66,7 @@ NPCs: {
 	ZombizzaNPC.DisplayName: Zombizza N P C
 	MushroomBug.DisplayName: Mushroom Bug
 	PizzaBird.DisplayName: Pizza Bird
+	PizzaRabbit.DisplayName: Pizza Rabbit
 }
 
 "Keybinds.Spawn Pizza NPC.DisplayName": Spawn  Pizza  N P C

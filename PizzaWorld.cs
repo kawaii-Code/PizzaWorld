@@ -65,3 +65,4 @@ public enum Message : byte
 {
     SpawnNPC = 0,
 }
+
