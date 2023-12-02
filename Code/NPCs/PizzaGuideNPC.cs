@@ -21,6 +21,9 @@ public class PizzaGuideNPC : ModNPC
         NPC.CloneDefaults(NPCID.Guide);
         NPC.friendly = false;
         NPC.damage = 20;
+        
+        AnimationType = NPCID.Guide;
+        AIType = NPCID.Guide;
     }
     
     public override string GetChat()
