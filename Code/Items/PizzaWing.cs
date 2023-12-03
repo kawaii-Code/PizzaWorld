@@ -16,8 +16,6 @@ public class PizzaWing : ModItem
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
     }
 
-    public override string Name { get; } = "Pizza Wings";
-
     public override void SetDefaults()
     {
         Item.width = 22;
