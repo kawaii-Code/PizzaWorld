@@ -79,6 +79,7 @@ NPCs: {
 	}
 
 	ZombizzaNPC.DisplayName: Zombizza N P C
+	Zombizza.DisplayName: Zombizza
 	MushroomBug.DisplayName: Mushroom Bug
 	PizzaBird.DisplayName: Pizza Bird
 	PizzaRabbit.DisplayName: Pizza Rabbit

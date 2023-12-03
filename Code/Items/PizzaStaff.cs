@@ -12,7 +12,6 @@ public class PizzaStaff : ModItem
         Item.useStyle = ItemUseStyleID.HoldUp;
         Item.damage = 20;
         Item.crit = 30;
-        
     }
 
     public override void AddRecipes()
