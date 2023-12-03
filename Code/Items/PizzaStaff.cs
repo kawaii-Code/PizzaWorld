@@ -9,7 +9,7 @@ public class PizzaStaff : ModItem
     public override void SetDefaults()
     {
         Item.CloneDefaults(ItemID.CactusSword);
-        Item.useStyle = ItemUseStyleID.Swing;
+        Item.useStyle = ItemUseStyleID.HoldUp;
         Item.damage = 20;
         Item.crit = 30;
         
