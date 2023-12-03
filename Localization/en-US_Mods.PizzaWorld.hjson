@@ -45,6 +45,11 @@ Items: {
 		DisplayName: Pizza Wings
 		Tooltip: ""
 	}
+
+	PizzaWing: {
+		DisplayName: Pizza Wing
+		Tooltip: ""
+	}
 }
 
 NPCs: {
