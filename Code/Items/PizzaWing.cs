@@ -27,8 +27,8 @@ public class PizzaWing : ModItem
 
     public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising,
         ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend) {
-        ascentWhenFalling = 0.85f; // Falling glide speed
-        ascentWhenRising = 0.15f; // Rising speed
+        ascentWhenFalling = 0.85f;
+        ascentWhenRising = 0.15f;
         maxCanAscendMultiplier = 1f;
         maxAscentMultiplier = 3f;
         constantAscend = 0.135f;

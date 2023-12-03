@@ -50,6 +50,16 @@ Items: {
 		DisplayName: Pizza Wing
 		Tooltip: ""
 	}
+
+	PizzaBow: {
+		DisplayName: Pizza Bow
+		Tooltip: ""
+	}
+
+	PizzaYoyo: {
+		DisplayName: Pizza Yoyo
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -75,3 +85,4 @@ NPCs: {
 }
 
 "Keybinds.Spawn Pizza NPC.DisplayName": Spawn  Pizza  N P C
+Projectiles.PizzaYoyoProjectile.DisplayName: Pizza Yoyo Projectile
