@@ -63,18 +63,27 @@ Items: {
 }
 
 NPCs: {
-	PizzaGuideNPC: {
-		DisplayName: Pizza Guide N P C
+	PizzaGuide: {
+		DisplayName: Pizza Guide
+        Shop: Pizza Shop
 
 		TownNPCMood: {
-			Content: I am content.
-			NoHome: I hate not having a home.
-			FarFromHome: I am too far from home.
-			LoveSpace: I love having so much space.
-			DislikeCrowded: I dislike how crowded I am.
-			HateCrowded: I hate how crowded I am.
-			LikeNPC_Princess: I like {NPCName}.
-			Princess_LovesNPC: I like {NPCName}.
+			Content: "I'm cool"
+			NoHome: "I need a pizzeria!"
+            FarFromHome: "I am so far away..."
+			LoveSpace: "It's good when no one's around. I can have all the pizza to myself!"
+			DislikeCrowded: "I lost my appetite because of all these people."
+			HateCrowded: "It's so crowdy in here."
+			LikeNPC_Princess: "I really like {NPCName}."
+			Princess_LovesNPC: "I like {NPCName}."
+		}
+		
+		Dialogue: {
+		    Welcome: "Welcome to the Pizza World, my friend!"
+            RandomPizzaTrivia1: "Самая необычная пицца – PIZZA CONO – итальянцы придумали пиццу оригинальной формы, похожая на рожок с мороженым, чтобы было удобно есть ее на ходу."
+            RandomPizzaTrivia2: "Удивительно, но не существует единого стандарта размеров пиццы. В каждой стране, и даже в каждой пиццерии ее делают разных размеров. В США на дом можно заказать пиццу диаметром 1.2 м."
+            RandomPizzaTrivia3: "Космонавты тоже любят пиццу – и сейчас НАСА разрабатывает ЗД принтер, который мог бы «печатать» для них пиццу."
+            RandomPizzaTrivia4: "Исследования, проведенные итальянскими фармакологами, доказывают, что употребление пиццы способно помочь в борьбе с некоторыми видами рака. Диетологи рекомендуют хотя бы несколько раз в месяц есть настоящую итальянскую пиццу."
 		}
 	}
 

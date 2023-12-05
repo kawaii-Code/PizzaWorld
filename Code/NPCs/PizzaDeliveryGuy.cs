@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace PizzaWorld.Code.NPCs;
 
-public class PizzaGuideNPC : ModNPC
+public class PizzaDeliveryGuy : ModNPC
 {
    public override void SetStaticDefaults()
    {
