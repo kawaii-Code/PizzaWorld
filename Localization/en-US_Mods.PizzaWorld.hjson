@@ -3,52 +3,52 @@
 Items: {
 	PizzaSword: {
 		DisplayName: Pizza Sword
-		Tooltip: ""
+		Tooltip: "Slashes Pizza with ease"
 	}
 
 	PizzaAxe: {
 		DisplayName: Pizza Axe
-		Tooltip: ""
+		Tooltip: "Cuts down even the most 'pepperoni' trees"
 	}
 
 	PizzaStaff: {
 		DisplayName: Pizza Staff
-		Tooltip: ""
+		Tooltip: "Casts the magic of Pizza Gods upon your foes"
 	}
 
 	PizzaGuitar: {
 		DisplayName: Pizza Guitar
-		Tooltip: ""
+		Tooltip: "Enjoy a pizza tune"
 	}
 
 	PizzaBroadsword: {
 		DisplayName: Pizza Broadsword
-		Tooltip: ""
+		Tooltip: "Don't cut yourself 😁"
 	}
 
 	PizzaHammer: {
 		DisplayName: Pizza Hammer
-		Tooltip: ""
+		Tooltip: "Don't smash the delivery guy with that!"
 	}
 
 	PizzaPickaxe: {
 		DisplayName: Pizza Pickaxe
-		Tooltip: ""
+		Tooltip: "Dig through the world with the power of Pizza!"
 	}
 
 	PizzaHoverboard: {
 		DisplayName: Pizza Hoverboard
-		Tooltip: ""
+		Tooltip: "Fly through the skies!"
 	}
 
 	PizzaWings: {
 		DisplayName: Pizza Wings
-		Tooltip: ""
+		Tooltip: "Fly through the skies! Careful, pepperoni can fall off"
 	}
 
 	PizzaWing: {
 		DisplayName: Pizza Wing
-		Tooltip: ""
+		Tooltip: "Fly through the skies! Careful, pepperoni can fall off"
 	}
 
 	PizzaBow: {
@@ -58,7 +58,7 @@ Items: {
 
 	PizzaYoyo: {
 		DisplayName: Pizza Yoyo
-		Tooltip: ""
+		Tooltip: "Play with a cucumber! 😳😳"
 	}
 }
 

@@ -1,0 +1,89 @@
+# This file will automatically update with entries for new content after a build and reload
+
+Items: {
+	PizzaSword: {
+		DisplayName: Пицца Меч
+		Tooltip: "Разрезает пиццу на скорости ветра"
+	}
+
+	PizzaAxe: {
+		DisplayName: Пицца Топор
+		Tooltip: "Срежет даже заросший чуб! 👩‍🦲"
+	}
+
+	PizzaStaff: {
+		DisplayName: Пицца Посох
+		Tooltip: "Пошли на врагов магию пицца-богов!"
+	}
+
+	PizzaGuitar: {
+		DisplayName: Пицца Гитара
+		Tooltip: "Соло на грибах!"
+	}
+
+	PizzaBroadsword: {
+		DisplayName: Пицца Палаш
+		Tooltip: "Не порежься! 😁"
+	}
+
+	PizzaHammer: {
+		DisplayName: Пицца Молот
+		Tooltip: "Смотри не разбей ничего!"
+	}
+
+	PizzaPickaxe: {
+		DisplayName: Пицца Кирка
+		Tooltip: "Раскопай секреты этого мира!"
+	}
+
+	PizzaHoverboard: {
+		DisplayName: Пицца Доска
+		Tooltip: ""
+	}
+
+	PizzaWings: {
+		DisplayName: Пицца Крылья
+		Tooltip: "Осторожно, пепперони могут упасть"
+	}
+
+	PizzaWing: {
+		DisplayName: Пицца Крылья
+		Tooltip: "Осторожно, пепперони могут упасть"
+	}
+
+	PizzaBow: {
+		DisplayName: Пицца Лук
+		Tooltip: ""
+	}
+
+	PizzaYoyo: {
+		DisplayName: Пицца Йо-Йо
+		Tooltip: "Поиграй с огурцом! 😳😳"
+	}
+}
+
+NPCs: {
+	PizzaGuideNPC: {
+		DisplayName: Пицца Гид
+
+		TownNPCMood: {
+			Content: Кайф
+			NoHome: Мне нужна пиццерия!
+			FarFromHome: Я так далеко ушёл...
+			LoveSpace: Очень хорошо, когда никого нету. Всю пиццу могу съесть я.
+			DislikeCrowded: У меня портится аппетит от такого количества людей.
+			HateCrowded: Мне очень душно среди этих дураков.
+			LikeNPC_Princess: Ой, слушай, мне похоже оч нрав {NPCName}.
+			Princess_LovesNPC: Мне нрав {NPCName}.
+		}
+	}
+
+	ZombizzaNPC.DisplayName: Зомбицца
+	Zombizza.DisplayName: Зомбицца
+	MushroomBug.DisplayName: Грибожук
+	PizzaBird.DisplayName: Пицца-Птица
+	PizzaRabbit.DisplayName: Пицца Кролик
+}
+
+"Keybinds.Spawn Pizza NPC.DisplayName": Spawn  Pizza  N P C
+Projectiles.PizzaYoyoProjectile.DisplayName: Pizza Yoyo Projectile
