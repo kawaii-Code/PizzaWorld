@@ -60,6 +60,11 @@ Items: {
 		DisplayName: Pizza Yoyo
 		Tooltip: "Play with a cucumber! 😳😳"
 	}
+
+	PizzaSummonStaff: {
+		DisplayName: Pizza Summon Staff
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -95,4 +100,16 @@ NPCs: {
 }
 
 "Keybinds.Spawn Pizza NPC.DisplayName": Spawn  Pizza  N P C
-Projectiles.PizzaYoyoProjectile.DisplayName: Pizza Yoyo Projectile
+
+Projectiles: {
+	PizzaYoyoProjectile.DisplayName: Pizza Yoyo Projectile
+	PizzaShroom.DisplayName: Pizza Shroom
+	PizzaProjectile.DisplayName: Pizza Projectile
+}
+
+Buffs: {
+	PizzaShroomBuff: {
+		DisplayName: Pizza Shroom Buff
+		Description: Mods.PizzaWorld.Buffs.PizzaShroomBuff.Description
+	}
+}
