@@ -1,7 +1,8 @@
-﻿using Terraria;
+﻿using PizzaWorld.Code.NPCs;
+using Terraria;
 using Terraria.ModLoader;
 
-namespace PizzaWorld.Code.Items;
+namespace PizzaWorld.Code.Buffs;
 
 public class PizzaShroomBuff : ModBuff
 {

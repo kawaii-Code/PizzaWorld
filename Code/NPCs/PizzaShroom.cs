@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using PizzaWorld.Code.Buffs;
 using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace PizzaWorld.Code.Items;
+namespace PizzaWorld.Code.NPCs;
 
 public class PizzaShroom : ModProjectile
 {
@@ -112,7 +113,6 @@ public class PizzaShroom : ModProjectile
                     inertia = ReturnToPlayerInertia;
                 }
 
-                Debug.Log($"{speed} {inertia}");
                 directionToIdle.Normalize();
                 Fly(directionToIdle, speed, inertia);
 

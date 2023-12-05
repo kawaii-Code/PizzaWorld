@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using PizzaWorld.Code.Buffs;
+using PizzaWorld.Code.NPCs;
 using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.DataStructures;
