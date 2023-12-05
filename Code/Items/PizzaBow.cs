@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using PizzaWorld.Code.Utilities;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace PizzaWorld.Code.Items;
@@ -11,11 +12,6 @@ public class PizzaBow : ModItem
         Item.damage = 15;
         Item.crit = 7;
         Item.useTime = 25;
-        Item.value = Silver(25);
-
-        int Silver(int value)
-        {
-            return 100 * value;
-        }
+        Item.value = Price.Silver(25);
     }
 }

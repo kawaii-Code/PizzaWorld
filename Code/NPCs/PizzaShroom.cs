@@ -157,7 +157,7 @@ public class PizzaShroom : ModProjectile
                 continue;
 
             float distance = Vector2.Distance(Projectile.Center, npc.Center);
-            if (distance < minDistance && distance < AggroRange && (HasLineOfSightTo(npc) || distance < 100.0f))
+            if (distance < minDistance && (HasLineOfSightTo(npc) || distance < 100.0f))
             {
                 minDistance = distance;
                 result = npc;

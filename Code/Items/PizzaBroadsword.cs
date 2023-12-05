@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using PizzaWorld.Code.Utilities;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -17,12 +18,7 @@ public class PizzaBroadsword : ModItem
     {
         if (hit.Crit)
         {
-            target.AddBuff(BuffID.Poisoned, Seconds(3));
-        }
-
-        int Seconds(int value)
-        {
-            return 60 * value;
+            target.AddBuff(BuffID.Poisoned, Timings.Seconds(3));
         }
     }
 }
