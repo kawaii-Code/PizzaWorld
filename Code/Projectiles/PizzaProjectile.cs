@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.Localization;
@@ -10,8 +11,8 @@ public class PizzaProjectile : ModProjectile
 {
     public override void SetDefaults()
     {
-        Projectile.width = 52;
-        Projectile.height = 52;
+        Projectile.width = 34;
+        Projectile.height = 26;
         Projectile.friendly = true;
         Projectile.ignoreWater = true;
 
@@ -27,7 +28,7 @@ public class PizzaProjectile : ModProjectile
         Projectile.ai[0]++;
         if(Projectile.ai[0] < 60f)
         {
-            Projectile.velocity *= 1.01f;
+            Projectile.velocity *= 1.01f; 
         } else
         {
             Projectile.velocity *= 1.05f;
@@ -36,10 +37,9 @@ public class PizzaProjectile : ModProjectile
                 Projectile.Kill();
             }
         }
-
-        float rotateSpeed = 0.35f * (float)Projectile.direction;
-        Projectile.rotation += rotateSpeed;
-
+        
+        Projectile.rotation += 0.2f * Projectile.direction;
+        
         Lighting.AddLight(Projectile.Center, 0.75f, 0.75f, 0.75f);
 
         if(Main.rand.NextBool(2))
