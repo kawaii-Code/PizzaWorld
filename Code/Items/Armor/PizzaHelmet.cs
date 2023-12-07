@@ -1,14 +1,11 @@
-﻿using PizzaWorld.Code.Utilities;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
-#if false
 
 namespace PizzaWorld.Code.Items.Armor;
 
 [AutoloadEquip(EquipType.Head)]
-public class Helmet : ModItem
+public class PizzaHelmet : ModItem
 {
     public override void SetStaticDefaults()
     {
@@ -25,15 +22,9 @@ public class Helmet : ModItem
 
         Item.defense = 6;
     }
-
+    
     public override void UpdateEquip(Player player)
     {
         player.buffImmune[BuffID.Cursed] = true;
     }
 }
-
-public class Breastplate : ModItem
-{
-    
-}
-#endif

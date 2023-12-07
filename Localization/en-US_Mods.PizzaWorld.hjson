@@ -67,6 +67,21 @@ Items: {
 		DisplayName: Pizza Summon Staff
 		Tooltip: ""
 	}
+
+	PizzaHelmet: {
+		DisplayName: Pizza Helmet
+		Tooltip: ""
+	}
+
+	PizzaBreastplate: {
+		DisplayName: Pizza Breastplate
+		Tooltip: ""
+	}
+
+	PizzaGreaves: {
+		DisplayName: Pizza Greaves
+		Tooltip: ""
+	}
 }
 
 NPCs: {
@@ -128,5 +143,12 @@ Buffs: {
 	PizzaShroomBuff: {
 		DisplayName: Pizza Shroom Buff
 		Description: Mods.PizzaWorld.Buffs.PizzaShroomBuff.Description
+	}
+}
+
+Biomes: {
+	PizzaBiome: {
+		DisplayName: Pizza Biome
+		TownNPCDialogueName: the Pizza Biome
 	}
 }
