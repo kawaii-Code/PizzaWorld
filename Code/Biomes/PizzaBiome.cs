@@ -11,11 +11,8 @@ public class PizzaBiome : ModBiome
 
     public override bool IsBiomeActive(Player player)
     {
-        int tileCount = Main.SceneMetrics.GetTileCount((ushort)ModContent.TileType<PizzaTile>());
-        if (tileCount > 50)
-        {
-            return true;
-        }
-        return false;
+        bool enoughTiles = Main.SceneMetrics.GetTileCount((ushort)ModContent.TileType<PizzaTile>()) > 40;
+        bool notAbove = player.ZoneSkyHeight || player.ZoneOverworldHeight;
+        return enoughTiles && notAbove;
     }
 }

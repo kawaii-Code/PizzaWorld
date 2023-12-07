@@ -1,5 +1,7 @@
 # This file will automatically update with entries for new content after a build and reload
 
+PizzaBiomePassMessage: Готовим пиццу...
+
 Items: {
 	PizzaSword: {
 		DisplayName: Пицца Меч
@@ -8,7 +10,7 @@ Items: {
 
 	PizzaAxe: {
 		DisplayName: Пицца Топор
-		Tooltip: Срежет даже заросший чуб! 👩‍🦲
+		Tooltip: Срежет даже заросший чуб!
 	}
 
 	PizzaStaff: {
@@ -23,7 +25,7 @@ Items: {
 
 	PizzaBroadsword: {
 		DisplayName: Пицца Палаш
-		Tooltip: Не порежься! 😁
+		Tooltip: Не порежься!
 	}
 
 	PizzaHammer: {
@@ -58,7 +60,7 @@ Items: {
 
 	PizzaYoyo: {
 		DisplayName: Пицца Йо-Йо
-		Tooltip: Поиграй с огурцом! 😳😳
+		Tooltip: Поиграй с огурцом!
 	}
 
 	PizzaSummonStaff: {
