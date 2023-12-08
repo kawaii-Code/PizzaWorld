@@ -10,7 +10,7 @@ public class PizzaBreastplate : ModItem
 {
     public override void SetStaticDefaults()
     {
-        
+        var pizzaBreastplate = new PizzaBreastplate();
     }
 
     public override void SetDefaults()
@@ -27,5 +27,6 @@ public class PizzaBreastplate : ModItem
     public override void UpdateEquip(Player player)
     {
         player.buffImmune[BuffID.Cursed] = true;
+        player.AddBuff(BuffID.Honey, 99999 * 60, quiet: true);
     }
 }
