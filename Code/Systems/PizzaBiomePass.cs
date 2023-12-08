@@ -20,12 +20,12 @@ public class PizzaBiomePass : GenPass
 
     protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
     {
+        if (Main.netMode == NetmodeID.MultiplayerClient)
+        {
+            return;
+        }
+        
         progress.Message = Localized("PizzaBiomePassMessage");
-        SpawnPizzaTiles();
-    }
-
-    public static void SpawnPizzaTiles()
-    {
         bool toTheRight = WorldGen.genRand.NextBool();
         int x = 0;
         int attempt = 1;
@@ -34,11 +34,11 @@ public class PizzaBiomePass : GenPass
         {
             if (toTheRight)
             {
-                x = WorldGen.genRand.Next(Main.spawnTileX + offsetFromSpawn, 2 * Main.maxTilesX / 3);
+                x = WorldGen.genRand.Next(Main.maxTilesX / 3, Main.maxTilesX / 2 - offsetFromSpawn);
             }
             else
             {
-                x = WorldGen.genRand.Next(Main.maxTilesX / 3, Main.spawnTileX - offsetFromSpawn);
+                x = WorldGen.genRand.Next(Main.maxTilesX / 2 + offsetFromSpawn, 2 * Main.maxTilesX / 3);
             }
 
             if (IsSuitableTile(WorldGen.TileType(x, FindSurface(x))))
@@ -63,20 +63,8 @@ public class PizzaBiomePass : GenPass
         foreach (Point point in points)
         {
             WorldUtils.Gen(point, new Shapes.Circle(offset, depth), new Actions.SetTile(pizzaTile));
-
-            for (int i = 0; i <= 2 * offset; i++)
-            {
-                int tx = point.X + i - offset;
-                int ty = FindSurface(tx);
-                int currentDepth = -5;
-                while (currentDepth < 5 + depth && WorldGen.SolidTile(tx, ty) && IsSuitableTile(WorldGen.TileType(tx, ty)))
-                {
-                    WorldGen.PlaceTile(tx, ty + currentDepth, pizzaTile);
-                    currentDepth++;
-                }
-            }
         }
-
+        
         bool IsSuitableTile(int tile)
         {
             return tile is TileID.Dirt or TileID.Stone or TileID.Sand;
