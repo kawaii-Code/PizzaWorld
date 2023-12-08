@@ -68,11 +68,6 @@ Items: {
 		// Tooltip: ""
 	}
 
-	PizzaHelmet: {
-		// DisplayName: Pizza Helmet
-		// Tooltip: ""
-	}
-
 	PizzaBreastplate: {
 		// DisplayName: Pizza Breastplate
 		// Tooltip: ""
@@ -80,6 +75,11 @@ Items: {
 
 	PizzaGreaves: {
 		// DisplayName: Pizza Greaves
+		// Tooltip: ""
+	}
+
+	PizzaHelmet: {
+		// DisplayName: Pizza Helmet
 		// Tooltip: ""
 	}
 }
@@ -148,7 +148,7 @@ Buffs: {
 
 Biomes: {
 	PizzaBiome: {
-		// DisplayName: Pizza Biome
 		// TownNPCDialogueName: the Pizza Biome
+		// DisplayName: Pizza Biome
 	}
 }
