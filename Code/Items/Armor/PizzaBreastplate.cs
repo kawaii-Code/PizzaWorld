@@ -8,11 +8,6 @@ namespace PizzaWorld.Code.Items.Armor;
 [AutoloadEquip(EquipType.Body)]
 public class PizzaBreastplate : ModItem
 {
-    public override void SetStaticDefaults()
-    {
-        var pizzaBreastplate = new PizzaBreastplate();
-    }
-
     public override void SetDefaults()
     {
         Item.width = 18;
