@@ -64,6 +64,62 @@ public class PizzaBiomePass : GenPass
         {
             WorldUtils.Gen(point, new Shapes.Circle(offset, depth), new Actions.SetTile(pizzaTile));
         }
+
+        { // Decorations
+            int shroomCount = 15;
+            int shroomLeft = x - 200;
+            int shroomRight = x + 200;
+            for (int i = 0; i < shroomCount; i++)
+            {
+                PlaceOnPizzaTile<MushroomDecoration>(100, 6, pizzaTile, shroomLeft, shroomRight);
+            }
+            
+            int cucumberCount = 10;
+            int cucumberLeft = x - 200;
+            int cucumberRight = x + 200;
+            for (int i = 0; i < cucumberCount; i++)
+            {
+                PlaceOnPizzaTile<CucumberDecoration>(100, 1, pizzaTile, cucumberLeft, cucumberRight);
+            }
+            
+            int logCount = 2;
+            int logLeft = x - 200;
+            int logRight = x + 200;
+            for (int i = 0; i < logCount; i++)
+            {
+                PlaceOnPizzaTile<LogDecoration>(100, 1, pizzaTile, logLeft, logRight);
+            }
+        }
+
+        bool PlaceOnPizzaTile<T>(int maxAttempts, int styleCount, ushort pizzaTileType, int left = 0, int right = -1)
+            where T : ModTile
+        {
+            if (right == -1)
+            {
+                right = Main.maxTilesX;
+            }
+            
+            bool spawned = false;
+            int attempts = 0;
+            while (!spawned && attempts <= maxAttempts)
+            {
+                attempts++;
+                    
+                int tileX = WorldGen.genRand.Next(left, right);
+                int tileY = FindSurface(tileX);
+                if (Main.tile[tileX, tileY].TileType != pizzaTileType)
+                {
+                    continue;
+                }
+                    
+                int type = ModContent.TileType<T>();
+                int style = WorldGen.genRand.Next(styleCount);
+                WorldGen.PlaceTile(tileX, tileY - 1, type, mute: true, style: style);
+                spawned = true;
+            }
+
+            return spawned;
+        }
         
         bool IsSuitableTile(int tile)
         {
