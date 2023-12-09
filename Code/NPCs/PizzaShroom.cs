@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Buffs;
-using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

@@ -24,10 +24,6 @@ public class PizzaFish : ModNPC
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        if (Main.player[Main.myPlayer].InModBiome<PizzaBiome>())
-        {
-            return 0.1f;
-        }
-        return 0.0f;
+        return Main.player[Main.myPlayer].InModBiome<PizzaBiome>() ? 0.1f : 0.0f;
     }
 }

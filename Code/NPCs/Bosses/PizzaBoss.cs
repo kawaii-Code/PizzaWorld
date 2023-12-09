@@ -1,9 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using PizzaWorld.Code.Systems;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Animations;
 using Terraria.ID;
 using Terraria.ModLoader;
 

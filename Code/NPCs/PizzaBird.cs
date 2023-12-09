@@ -1,8 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using PizzaWorld.Code.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Utilities;
 
 namespace PizzaWorld.Code.NPCs;
 
@@ -24,6 +23,6 @@ public class PizzaBird : ModNPC
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return SpawnCondition.OverworldDay.Chance * 0.1f;
+        return Main.player[Main.myPlayer].InModBiome<PizzaBiome>() ? 0.1f : 0.0f;
     }
 }

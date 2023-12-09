@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Tiles;
 using Terraria;
@@ -7,7 +6,6 @@ using Terraria.ID;
 using Terraria.IO;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.UI;
 using Terraria.WorldBuilding;
 
 namespace PizzaWorld.Code.Systems;

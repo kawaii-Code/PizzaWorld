@@ -1,6 +1,5 @@
-﻿using MonoMod;
+﻿using PizzaWorld.Code.Systems;
 using Terraria;
-using Terraria.GameContent.Creative;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,5 +25,10 @@ public class PizzaRabbit : ModNPC
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(new CommonDrop(ItemID.Pizza, 20, chanceNumerator: 2));
+    }
+    
+    public override float SpawnChance(NPCSpawnInfo spawnInfo)
+    {
+        return Main.player[Main.myPlayer].InModBiome<PizzaBiome>() ? 0.1f : 0.0f;
     }
 }

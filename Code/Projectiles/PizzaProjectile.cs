@@ -1,8 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using PizzaWorld.Code.Utilities;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace PizzaWorld.Code.Projectiles;

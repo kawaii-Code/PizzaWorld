@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿using PizzaWorld.Code.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,5 +21,10 @@ public class MushroomBug : ModNPC
         NPC.width = 16;
         NPC.height = 12;
         AnimationType = NPCID.Buggy;
+    }
+
+    public override float SpawnChance(NPCSpawnInfo spawnInfo)
+    {
+        return Main.player[Main.myPlayer].InModBiome<PizzaBiome>() ? 0.1f : 0.0f;
     }
 }
