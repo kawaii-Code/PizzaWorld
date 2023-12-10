@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace PizzaWorld.Code.Items;
@@ -12,6 +13,7 @@ public class PizzaPickaxe : ModItem
         Item.crit = 5;
         Item.knockBack = 3.0f;
         Item.pick = 85;
+        Item.UseSound = new SoundStyle("PizzaWorld/Sounds/YaHochuPizzu");
     }
 
     public override void AddRecipes()
