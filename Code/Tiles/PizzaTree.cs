@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using PizzaWorld.Code.Items;
 using ReLogic.Content;
 using Terraria;
 using Terraria.GameContent;
@@ -30,7 +31,7 @@ public class PizzaTree : ModTree
 
     public override int DropWood()
     {
-        return 0;
+        return ModContent.ItemType<PizzaWood>();
     }
 
     public override void SetTreeFoliageSettings(Tile tile, ref int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth,
