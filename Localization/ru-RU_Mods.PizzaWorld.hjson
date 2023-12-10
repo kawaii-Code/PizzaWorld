@@ -129,6 +129,9 @@ NPCs: {
 			// Princess_LovesNPC: I like {NPCName}.
 		}
 	}
+
+	// PizzaBoss.DisplayName: Pizza Boss
+	// PizzaFish.DisplayName: Pizza Fish
 }
 
 "Keybinds.Spawn Pizza NPC.DisplayName": Spawn  Pizza  N P C

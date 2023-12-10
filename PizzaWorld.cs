@@ -20,7 +20,6 @@ public class PizzaWorld : Mod
             SpawnNPCForServer(type, netId);
         }  
     }
-    
 #if false
 // TODO: Test this syncing method (a lot simpler)
    int slot = NPC.NewNPC(new EntitySource_DebugCommand($"{nameof(ExampleMod)}_{nameof(ExampleSummonCommand)}"), xSpawnPosition, ySpawnPosition, type);
@@ -34,9 +33,16 @@ public class PizzaWorld : Mod
     public static void SpawnNPC<T>()
         where T : ModNPC
     {
-        if(Main.netMode == NetmodeID.SinglePlayer)
-            // TODO: Just spawn an NPC.
+        if (Main.netMode == NetmodeID.SinglePlayer)
+        {
+            Player player = Main.player[0];
+        
+            int x = (int)player.Bottom.X + player.direction * 200;
+            int y = (int)player.Bottom.Y;
+            NPC spawnedNpc = NPC.NewNPCDirect(new EntitySource_Film(), x, y, ModContent.NPCType<T>());
             return;
+        }
+            
         
         ModPacket packet = ModContent.GetInstance<PizzaWorld>().GetPacket();
         ModNPC npc = ModContent.GetModNPC(ModContent.NPCType<T>());

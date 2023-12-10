@@ -6,9 +6,9 @@ namespace PizzaWorld.Code.Utilities;
 
 public static class Debug
 {
-    public static void Log(string message)
+    public static void Log(object message)
     {
-        Message(message, Color.White);
+        Message(message.ToString(), Color.White);
     }
 
     public static void LogWarning(string message)

@@ -1,5 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
+using PizzaWorld.Code.Utilities;
+using SteelSeries.GameSense.DeviceZone;
 using Terraria;
+using Terraria.GameContent.Animations;
+using Terraria.GameContent.RGB;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,14 +13,18 @@ namespace PizzaWorld.Code.NPCs.Bosses;
 [AutoloadBossHead]
 public class PizzaBoss : ModNPC
 {
-    private bool _stunned;
-    private int _stunnedTimer;
-    private int _ai;
-    private int _frame;
+    private BossAI _currentBossAI;
+    
+    public enum BossStage
+    {
+        First,
+        Second,
+        Third
+    }
     
     public override void SetStaticDefaults()
     {
-        Main.npcFrameCount[Type] = Main.npcFrameCount[NPCID.Skeleton];
+        //Main.npcFrameCount[Type] = Main.npcFrameCount[NPCID.Skeleton];
     }
 
     public override void SetDefaults()
@@ -38,59 +47,159 @@ public class PizzaBoss : ModNPC
         NPC.noTileCollide = true;
         NPC.noGravity = true;
         
-        
         NPC.boss = true;
         
-        AnimationType = NPCID.Goldfish;
-        AIType = NPCID.Goldfish;
+        //AnimationType = NPCID.Skeleton;
+
+        _currentBossAI = new FirstBossStageAI(NPC);
     }
 
     public override void AI()
     {
-        NPC.TargetClosest(true);
-        Player player = Main.player[NPC.target];
-        
-        Vector2 targetPosition = NPC.HasPlayerTarget ? player.Center : Main.npc[NPC.target].Center;
+        NPC.ai[0]++;
+        _currentBossAI.Update();
+        CheckStageTransit();
+    }
 
-        NPC.netAlways = true;
-
-        if (NPC.life > NPC.lifeMax)
-            NPC.life = NPC.lifeMax;
-
-        if (NPC.target < 0 || NPC.target == 255 || player.dead || player.active == false)
+    private void CheckStageTransit()
+    {
+        if (_currentBossAI.IsNeedTransit)
         {
-            NPC.TargetClosest(false);
-            NPC.direction = 1;
-            NPC.velocity.Y = 0;
+            //transit to next stage
+        }
+    }
 
-            if (NPC.timeLeft > 20)
+    internal abstract class BossAI
+    {
+        private float _intertia;
+        private float _velocity;
+
+        protected NPC NPC { get; }
+        
+        public abstract int MinLife { get; protected set; }
+        public abstract bool IsNeedTransit { get; protected set; }
+        
+        protected abstract int Damage { get; set; }
+        protected abstract float Speed { get; set; }
+        protected abstract float RushSpeed { get; set; }
+        
+        protected bool IsStunned { get; set; }
+        protected bool IsRushing { get; set; }
+
+        public abstract void Update();
+
+        public BossAI(NPC npc) => NPC = npc;
+
+        protected virtual void MoveTowards(Vector2 targetCenter)
+        {
+            var speed = IsRushing ? RushSpeed : Speed;
+            
+            Vector2 direction = targetCenter - NPC.Center;
+
+            float magnitude = (float)Math.Sqrt(direction.X * direction.X + direction.Y * direction.Y);
+
+            if (magnitude > speed)
             {
-                NPC.timeLeft = 20;
+                direction *= speed / magnitude;
+            }
+            
+            float turnResistance = 10f;
+            
+            direction = (NPC.velocity * turnResistance + direction) / (turnResistance + 1f);
+            magnitude = (float)Math.Sqrt(direction.X * direction.X + direction.Y * direction.Y);
+            
+            if(magnitude > speed) 
+                direction *= speed / magnitude;
+            
+            NPC.velocity = direction;
+        }
+        
+        protected virtual void OnPlayerHit()
+        {
+        } 
+    }
+
+    internal class FirstBossStageAI : BossAI
+    {
+        private float _idleDistance = 150f;
+        private float _rushDistance = 130f;
+        private float _timer;
+        private float _timeToChangeState = 300;
+
+        private Player _currentTarget;
+
+        private bool _isIdleState = true;
+        
+        public override int MinLife { get; protected set; }
+        public override bool IsNeedTransit { get; protected set; } = false;
+        
+        protected override int Damage { get; set; }
+        protected override float Speed { get; set; } = 5f;
+        protected override float RushSpeed { get; set; } = 7f;
+
+        public FirstBossStageAI(NPC npc) : base(npc) {}
+
+        public override void Update()
+        {
+            if (NPC.life <= MinLife)
+                IsNeedTransit = true;
+            
+            NPC.TargetClosest();
+
+            _currentTarget = Main.player[NPC.target];
+
+            _timer = NPC.ai[0];
+            
+            if(_isIdleState)
+                IdleState();
+            else
+                RushState();
+            
+            if (_timer > _timeToChangeState)
+            {
+                Debug.Log("ChangeState");
+                _isIdleState = !_isIdleState;
+                _timer = 0;
+                NPC.ai[0] = 0;
+            }
+        }
+
+        private void RushState()
+        {
+            if(_currentTarget == null)
+                return;
+
+            MoveTowards(_currentTarget.Center);
+            
+            if (Vector2.Distance(NPC.Center, _currentTarget.Center) < _rushDistance)
+            {
+                return;   
+            }
+
+            IsRushing = true;
+            
+            Vector2.SmoothStep(NPC.velocity, Vector2.Zero, 20);
+        }
+
+        private void IdleState()
+        {
+            IsRushing = false;
+            
+            if (_currentTarget == null)
+            {
+                //do smth if null target
                 return;
             }
-        }
 
-        if (_stunned)
-        {
-            NPC.velocity = Vector2.Zero;
-            
-            _stunnedTimer++;
-
-            if (_stunnedTimer >= 100)
+            if (Vector2.Distance(NPC.Center, _currentTarget.Center) > _idleDistance)
+                MoveTowards(_currentTarget.Center);
+            else
             {
-                _stunned = false;
-                _stunnedTimer = 0;
+                if (NPC.velocity.Length() > 0.1f)
+                    NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.1f);
+                else
+                    NPC.velocity = Vector2.Zero;
             }
-        }
-
-        _ai++;
-
-        int distance = (int)Vector2.Distance(targetPosition, NPC.Center);
-
-        NPC.netUpdate = true;
-        
-        if ((double)NPC.ai[0] < 300)
-        {
         }
     }
 }
