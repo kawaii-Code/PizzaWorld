@@ -28,4 +28,10 @@ public class PizzaHelmet : ModItem
         player.AddBuff(BuffID.WellFed3, 60 * 99999, quiet: true);
         player.buffImmune[BuffID.Invisibility] = true;
     }
+    
+    public override bool IsArmorSet(Item head, Item body, Item legs)
+    {
+        return (head.type == ModContent.ItemType<PizzaHelmet>() && legs.type == ModContent.ItemType<PizzaGreaves>() &&
+                body.type == ModContent.ItemType<PizzaBreastplate>());
+    }
 }
