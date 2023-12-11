@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Data;
+using PizzaWorld.Code.Systems;
 using Terraria;
 using Terraria.Chat;
 using Terraria.DataStructures;
+using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -11,10 +13,17 @@ namespace PizzaWorld.Code.NPCs;
 
 public class PizzaDeliveryGuy : ModNPC
 {
-   public override void SetStaticDefaults()
-   {
-      Main.npcFrameCount[Type] = Main.npcFrameCount[NPCID.Guide];
-   }
+    public override void SetStaticDefaults()
+    {
+        Main.npcFrameCount[Type] = Main.npcFrameCount[NPCID.Guide];
+      
+        NPC.Happiness
+            .SetBiomeAffection<PizzaBiome>(AffectionLevel.Love)
+            .SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
+            .SetBiomeAffection<SnowBiome>(AffectionLevel.Hate)
+            .SetNPCAffection(NPCID.Dryad, AffectionLevel.Love)
+            .SetNPCAffection<PizzaGuide>(AffectionLevel.Hate);
+    }
    
     public override void SetDefaults()
     {

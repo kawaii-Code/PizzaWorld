@@ -16,8 +16,10 @@ public class PizzaWorld : Mod
         {
             int type = reader.ReadInt32();
             int netId = reader.ReadInt32();
+            int x = reader.ReadInt32();
+            int y = reader.ReadInt32();
             
-            SpawnNPCForServer(type, netId);
+            SpawnNPCForServer(type, netId, x, y);
         }  
     }
 #if false
@@ -30,34 +32,35 @@ public class PizzaWorld : Mod
     } 
 #endif
 
-    public static void SpawnNPC<T>()
+    public static void SpawnNPC<T>(int spawnX = -1, int spawnY = -1)
         where T : ModNPC
     {
+        Player player = Main.player[0];
+        int x = spawnX == -1 ? (int)player.Bottom.X + player.direction * 200 : spawnX;
+        int y = spawnY == -1 ? (int)player.Bottom.Y : spawnY;
+        
         if (Main.netMode == NetmodeID.SinglePlayer)
         {
-            Player player = Main.player[0];
-        
-            int x = (int)player.Bottom.X + player.direction * 200;
-            int y = (int)player.Bottom.Y;
-            NPC spawnedNpc = NPC.NewNPCDirect(new EntitySource_Film(), x, y, ModContent.NPCType<T>());
+            NPC.NewNPCDirect(new EntitySource_Film(), x, y, ModContent.NPCType<T>());
             return;
         }
-            
         
         ModPacket packet = ModContent.GetInstance<PizzaWorld>().GetPacket();
         ModNPC npc = ModContent.GetModNPC(ModContent.NPCType<T>());
         packet.Write((byte)Message.SpawnNPC);
         packet.Write(npc.Type);
         packet.Write(npc.NPC.netID);
+        packet.Write(x);
+        packet.Write(y);
         packet.Send();
     }
 
-    private static void SpawnNPCForServer(int type, int netId)
+    private static void SpawnNPCForServer(int type, int netId, int spawnX, int spawnY)
     {
         Player player = Main.player[0];
         
-        int x = (int)player.Bottom.X + player.direction * 200;
-        int y = (int)player.Bottom.Y;
+        int x = spawnX == -1 ? (int)player.Bottom.X + player.direction * 200 : spawnX;
+        int y = spawnY == -1 ? (int)player.Bottom.Y : spawnY;
         NPC spawnedNpc = NPC.NewNPCDirect(new EntitySource_Film(), x, y, type);
 
         if (netId < 0)

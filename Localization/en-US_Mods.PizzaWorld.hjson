@@ -1,157 +1,167 @@
 # This file will automatically update with entries for new content after a build and reload
 
-PizzaBiomePassMessage: Planting pizza
+PizzaBiomePassMessage: Готовим пиццу...
 
 Items: {
 	PizzaSword: {
-		DisplayName: Pizza Sword
-		Tooltip: Slashes Pizza with ease
+		DisplayName: Пицца Меч
+		Tooltip: Разрезает пиццу на скорости ветра
 	}
 
 	PizzaAxe: {
-		DisplayName: Pizza Axe
-		Tooltip: Cuts down even the most 'pepperoni' trees
+		DisplayName: Пицца Топор
+		Tooltip: Срежет даже заросший чуб!
 	}
 
 	PizzaStaff: {
-		DisplayName: Pizza Staff
-		Tooltip: Casts the magic of Pizza Gods upon your foes
+		DisplayName: Пицца Посох
+		Tooltip: Пошли на врагов магию пицца-богов!
 	}
 
 	PizzaGuitar: {
-		DisplayName: Pizza Guitar
-		Tooltip: Enjoy a pizza tune
+		DisplayName: Пицца Гитара
+		Tooltip: Соло на грибах!
 	}
 
 	PizzaBroadsword: {
-		DisplayName: Pizza Broadsword
-		Tooltip: Don't cut yourself 😁
+		DisplayName: Пицца Палаш
+		Tooltip: Не порежься!
 	}
 
 	PizzaHammer: {
-		DisplayName: Pizza Hammer
-		Tooltip: Don't smash the delivery guy with that!
+		DisplayName: Пицца Молот
+		Tooltip: Смотри не разбей ничего!
 	}
 
 	PizzaPickaxe: {
-		DisplayName: Pizza Pickaxe
-		Tooltip: Dig through the world with the power of Pizza!
+		DisplayName: Пицца Кирка
+		Tooltip: Раскопай секреты этого мира!
 	}
 
 	PizzaHoverboard: {
-		DisplayName: Pizza Hoverboard
-		Tooltip: Fly through the skies!
+		DisplayName: Пицца Доска
+		Tooltip: Осторожно, на сыре можно поскользнуться!
 	}
 
 	PizzaWings: {
-		DisplayName: Pizza Wings
-		Tooltip: Fly through the skies! Careful, pepperoni can fall off
+		DisplayName: Пицца Крылья
+		Tooltip: Осторожно, пепперони могут упасть
 	}
 
 	PizzaWing: {
-		DisplayName: Pizza Wing
-		Tooltip: Fly through the skies! Careful, pepperoni can fall off
+		DisplayName: Пицца Крылья
+		Tooltip: Осторожно, пепперони могут упасть
 	}
 
 	PizzaBow: {
-		DisplayName: Pizza Bow
-		Tooltip: ""
+		DisplayName: Пицца Лук
+		Tooltip: Стреляет пепперони
 	}
 
 	PizzaYoyo: {
-		DisplayName: Pizza Yoyo
-		Tooltip: Play with a cucumber! 😳😳
+		DisplayName: Пицца Йо-Йо
+		Tooltip: Поиграй с огурцом!
 	}
 
 	PizzaSummonStaff: {
-		DisplayName: Pizza Summon Staff
-		Tooltip: ""
+		DisplayName: Пицца Посох Призыва
+		Tooltip: Шампиньон не кусается
 	}
 
 	PizzaBreastplate: {
-		DisplayName: Pizza Breastplate
-		Tooltip: ""
+		DisplayName: Нагрудник из Пиццы
+		Tooltip: Сделан из очень толстого теста
 	}
 
 	PizzaGreaves: {
-		DisplayName: Pizza Greaves
-		Tooltip: ""
+		DisplayName: Поножи из Пиццы
+		Tooltip: Лёгкий ход на огурцах
 	}
 
 	PizzaHelmet: {
-		DisplayName: Pizza Helmet
-		Tooltip: ""
+		DisplayName: Шлем из Пиццы
+		Tooltip: С подкладкой из сырной корочки!
 	}
-}
-
-NPCs: {
-	PizzaGuide: {
-		DisplayName: Pizza Guide
-		Shop: Pizza Shop
-
-		TownNPCMood: {
-			Content: I'm cool
-			NoHome: I need a pizzeria!
-			FarFromHome: I am so far away...
-			LoveSpace: It's good when no one's around. I can have all the pizza to myself!
-			DislikeCrowded: I lost my appetite because of all these people.
-			HateCrowded: It's so crowdy in here.
-			LikeNPC_Princess: I really like {NPCName}.
-			Princess_LovesNPC: I like {NPCName}.
-		}
-
-		Dialogue: {
-			Welcome: Welcome to the Pizza World, my friend!
-			RandomPizzaTrivia1: Самая необычная пицца – PIZZA CONO – итальянцы придумали пиццу оригинальной формы, похожая на рожок с мороженым, чтобы было удобно есть ее на ходу.
-			RandomPizzaTrivia2: Удивительно, но не существует единого стандарта размеров пиццы. В каждой стране, и даже в каждой пиццерии ее делают разных размеров. В США на дом можно заказать пиццу диаметром 1.2 м.
-			RandomPizzaTrivia3: Космонавты тоже любят пиццу – и сейчас НАСА разрабатывает ЗД принтер, который мог бы «печатать» для них пиццу.
-			RandomPizzaTrivia4: Исследования, проведенные итальянскими фармакологами, доказывают, что употребление пиццы способно помочь в борьбе с некоторыми видами рака. Диетологи рекомендуют хотя бы несколько раз в месяц есть настоящую итальянскую пиццу.
-		}
-	}
-
-	ZombizzaNPC.DisplayName: Zombizza N P C
-	Zombizza.DisplayName: Zombizza
-	MushroomBug.DisplayName: Mushroom Bug
-	PizzaBird.DisplayName: Pizza Bird
-	PizzaRabbit.DisplayName: Pizza Rabbit
-
-	PizzaDeliveryGuy: {
-		DisplayName: Pizza Delivery Guy
-
-		TownNPCMood: {
-			Content: I am content.
-			NoHome: I hate not having a home.
-			FarFromHome: I am too far from home.
-			LoveSpace: I love having so much space.
-			DislikeCrowded: I dislike how crowded I am.
-			HateCrowded: I hate how crowded I am.
-			LikeNPC_Princess: I like {NPCName}.
-			Princess_LovesNPC: I like {NPCName}.
-		}
-	}
-
-	PizzaBoss.DisplayName: Pizza Boss
-	PizzaFish.DisplayName: Pizza Fish
-}
-
-"Keybinds.Spawn Pizza NPC.DisplayName": Spawn  Pizza  N P C
-
-Projectiles: {
-	PizzaYoyoProjectile.DisplayName: Pizza Yoyo Projectile
-	PizzaShroom.DisplayName: Pizza Shroom
-	PizzaProjectile.DisplayName: Pizza Projectile
 }
 
 Buffs: {
 	PizzaShroomBuff: {
-		DisplayName: Pizza Shroom Buff
-		Description: Mods.PizzaWorld.Buffs.PizzaShroomBuff.Description
+		DisplayName: Пиццы Гриб
+		Description: За вами следует разумный шампиньон
 	}
 }
 
 Biomes: {
 	PizzaBiome: {
-		TownNPCDialogueName: the Pizza Biome
-		DisplayName: Pizza Biome
+		TownNPCDialogueName: Пицца мир
+		DisplayName: Пицца Биом
 	}
+}
+
+NPCs: {
+	PizzaDeliveryGuy: {
+		DisplayName: Доставщик Пиццы
+
+		TownNPCMood: {
+			// Content: I am content.
+			// NoHome: I hate not having a home.
+			// FarFromHome: I am too far from home.
+			// LoveSpace: I love having so much space.
+			// DislikeCrowded: I dislike how crowded I am.
+			// HateCrowded: I hate how crowded I am.
+			// LikeNPC_Princess: I like {NPCName}.
+			// Princess_LovesNPC: I like {NPCName}.
+		}
+	}
+
+	PizzaGuide: {
+		DisplayName: Пицца Гид
+
+		Name1: Пицца Гид
+		Name2: Гуру Пиццы
+		Name3: Сенсей Пиццы
+		Name4: Пицца Монах
+
+		Shop: Магазин пиццы
+
+		TownNPCMood: {
+			Content: Кайф...
+			NoHome: Мне нужна пиццерия!
+			FarFromHome: Я так далеко ушёл...
+			LoveSpace: Очень хорошо, когда никого нету. Всю пиццу могу съесть я.
+			DislikeCrowded: У меня портится аппетит от такого количества людей.
+			HateCrowded: Мне очень душно среди этих дураков.
+			LoveNPC_Princess: Ой, слушай, мне похоже оч нрав {NPCName}.
+			HateNPC_PizzaDeliveryGuy: Этот козёл никогда не доставляет пиццу вовремя! Будь он проклят!
+		}
+
+		Dialogue: {
+			Welcome: Добро пожаловать в мир пиццы, мой друг!
+			RandomPizzaTrivia1: Самая необычная пицца – PIZZA CONO – итальянцы придумали пиццу оригинальной формы, похожая на рожок с мороженым, чтобы было удобно есть ее на ходу.
+			RandomPizzaTrivia2: Удивительно, но не существует единого стандарта размеров пиццы. В каждой стране, и даже в каждой пиццерии ее делают разных размеров. В США на дом можно заказать пиццу диаметром 1.2 м.
+			RandomPizzaTrivia3: Космонавты тоже любят пиццу – и сейчас НАСА разрабатывает ЗД принтер, который мог бы «печатать» для них пиццу.
+			RandomPizzaTrivia4: Исследования, проведенные итальянскими фармакологами, доказывают, что употребление пиццы способно помочь в борьбе с некоторыми видами рака. Диетологи рекомендуют хотя бы несколько раз в месяц есть настоящую итальянскую пиццу.
+			RandomPizzaTrivia5: Самая большая пицца в мире: Рекорд поставила пицца круглой формы и появилась в 1990 года в ЮАР в супермаркете Норвуда. Она имела следующие параметры - диаметр 37.4 метра, вес 12 кг.
+			RandomPizzaTrivia6: В истории медицины зарегистрирована ситуация, когда молодому человеку прописали регулярное употребление пиццы. Такая диета была необходима для сужения сосудов, так как они у него были слишком широкими, что создавало проблемы со здоровьем.
+			RandomPizzaTrivia7: До конца 19 века пицца считалась едой бедняков и только в 1899 году, когда она впервые попала на королевский стол, началась ее популярность по всему миру. Однако первым из известных людей, обративших внимание на это блюдо, стал Александр Дюма.
+			RandomPizzaTrivia8: Большинство знаменитостей работали в пиццерии. Удивительно, но карьера многих голливудских звезд начиналась именно с сервисов по доставке еды.
+			RandomPizzaTrivia9: Считаете, что только люди являются поклонниками итальянской лепешки? Как бы не так! В Америке существует специальная пиццерия, которая готовит мини-пиццу исключительно для собак. В составе только натуральные и полезные продукты.
+			RandomPizzaTrivia10: В какой день съедают больше всего пиццы? Согласно мировой статистике (и нашим личным наблюдениям) в субботу заказывают и съедают больше всего порций пиццы.
+		}
+	}
+
+	ZombizzaNPC.DisplayName: Зомбицца
+	Zombizza.DisplayName: Зомбицца
+	MushroomBug.DisplayName: Грибожук
+	PizzaBird.DisplayName: Пицца Птица
+	PizzaRabbit.DisplayName: Пицца Кролик
+	PizzaFish.DisplayName: Пицца Рыба
+
+	// PizzaBoss.DisplayName: Pizza Boss
+}
+
+Projectiles: {
+	// PizzaYoyoProjectile.DisplayName: Pizza Yoyo Projectile
+	// PizzaShroom.DisplayName: Pizza Shroom
+	// PizzaProjectile.DisplayName: Pizza Projectile
 }
