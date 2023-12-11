@@ -58,9 +58,32 @@ public class PizzaBiomePass : GenPass
         }
 
         ushort pizzaTile = (ushort)ModContent.TileType<PizzaTile>();
+        int minX = 2147483647;
+        int maxX = -1;
         foreach (Point point in points)
         {
+            if (point.X < minX)
+                minX = point.X;
+            if (point.X > maxX)
+                maxX = point.X;
             WorldUtils.Gen(point, new Shapes.Circle(offset, depth), new Actions.SetTile(pizzaTile));
+        }
+
+        for (int i = minX; i < maxX; i++)
+        {
+            int y = FindSurface(i);
+            if (WorldGen.TileType(i, y) != pizzaTile)
+            {
+                int tilesChanged = 0;
+                int xx = i;
+                int yy = y;
+                while (WorldGen.SolidTile(xx, yy) && tilesChanged < 2 * depth)
+                {
+                    WorldGen.PlaceTile(xx, yy, pizzaTile);
+                    tilesChanged++;
+                    yy++;
+                }
+            }
         }
 
         { // Decorations
