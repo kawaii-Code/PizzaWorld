@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Utilities;
 using SteelSeries.GameSense.DeviceZone;
@@ -116,7 +118,10 @@ public class PizzaBoss : ModNPC
         
         protected virtual void OnPlayerHit()
         {
-        } 
+        }
+
+        
+        
     }
 
     internal class FirstBossStageAI : BossAI
@@ -150,10 +155,12 @@ public class PizzaBoss : ModNPC
 
             _timer = NPC.ai[0];
             
-            if(_isIdleState)
+            /*if(_isIdleState)
                 IdleState();
             else
-                RushState();
+                RushState();*/
+            
+            IdleState();
             
             if (_timer > _timeToChangeState)
             {
@@ -195,11 +202,20 @@ public class PizzaBoss : ModNPC
                 MoveTowards(_currentTarget.Center);
             else
             {
-                if (NPC.velocity.Length() > 0.1f)
-                    NPC.velocity = Vector2.Lerp(NPC.velocity, Vector2.Zero, 0.1f);
-                else
-                    NPC.velocity = Vector2.Zero;
+                NPC.ai[1]++;
+                Floating();
             }
+        }
+        
+        private void Floating()
+        {
+            if (NPC.ai[1] > 40)
+            {
+                NPC.velocity += new Vector2(Main.rand.Next(-2, 1), Main.rand.NextFloat(-2,-0.7f));
+                NPC.ai[1] = 0;
+                Debug.Log("Change velocity");
+            }
+            
         }
     }
 }
