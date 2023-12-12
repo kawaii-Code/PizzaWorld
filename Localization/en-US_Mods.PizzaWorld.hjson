@@ -82,6 +82,16 @@ Items: {
 		DisplayName: Шлем из Пиццы
 		Tooltip: С подкладкой из сырной корочки!
 	}
+
+	PizzaWood: {
+		Tooltip: ""
+		DisplayName: Pizza Wood
+	}
+
+	PizzaTile: {
+		Tooltip: ""
+		DisplayName: Pizza Tile
+	}
 }
 
 Buffs: {
@@ -103,25 +113,28 @@ NPCs: {
 		DisplayName: Доставщик Пиццы
 
 		TownNPCMood: {
-			// Content: I am content.
-			// NoHome: I hate not having a home.
-			// FarFromHome: I am too far from home.
-			// LoveSpace: I love having so much space.
-			// DislikeCrowded: I dislike how crowded I am.
-			// HateCrowded: I hate how crowded I am.
-			// LikeNPC_Princess: I like {NPCName}.
-			// Princess_LovesNPC: I like {NPCName}.
+			NoHome: I hate not having a home.
+			Content: I am content.
+			FarFromHome: I am too far from home.
+			LoveSpace: I love having so much space.
+			DislikeCrowded: I dislike how crowded I am.
+			HateCrowded: I hate how crowded I am.
+			LoveBiome: I love {BiomeName}.
+			LikeBiome: I like {BiomeName}.
+			HateBiome: I hate {BiomeName}.
+			LoveNPC: I love {NPCName}.
+			HateNPC: I hate {NPCName}.
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
 		}
 	}
 
 	PizzaGuide: {
 		DisplayName: Пицца Гид
-
 		Name1: Пицца Гид
 		Name2: Гуру Пиццы
 		Name3: Сенсей Пиццы
 		Name4: Пицца Монах
-
 		Shop: Магазин пиццы
 
 		TownNPCMood: {
@@ -133,6 +146,13 @@ NPCs: {
 			HateCrowded: Мне очень душно среди этих дураков.
 			LoveNPC_Princess: Ой, слушай, мне похоже оч нрав {NPCName}.
 			HateNPC_PizzaDeliveryGuy: Этот козёл никогда не доставляет пиццу вовремя! Будь он проклят!
+			LoveBiome: I love {BiomeName}.
+			LikeBiome: I like {BiomeName}.
+			HateBiome: I hate {BiomeName}.
+			LoveNPC: I love {NPCName}.
+			HateNPC: I hate {NPCName}.
+			LikeNPC_Princess: I like {NPCName}.
+			Princess_LovesNPC: I like {NPCName}.
 		}
 
 		Dialogue: {
@@ -156,12 +176,11 @@ NPCs: {
 	PizzaBird.DisplayName: Пицца Птица
 	PizzaRabbit.DisplayName: Пицца Кролик
 	PizzaFish.DisplayName: Пицца Рыба
-
-	// PizzaBoss.DisplayName: Pizza Boss
+	PizzaBoss.DisplayName: Pizza Boss
 }
 
 Projectiles: {
-	// PizzaYoyoProjectile.DisplayName: Pizza Yoyo Projectile
-	// PizzaShroom.DisplayName: Pizza Shroom
-	// PizzaProjectile.DisplayName: Pizza Projectile
+	PizzaShroom.DisplayName: Pizza Shroom
+	PizzaProjectile.DisplayName: Pizza Projectile
+	PizzaYoyoProjectile.DisplayName: Pizza Yoyo Projectile
 }

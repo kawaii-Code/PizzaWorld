@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Utilities;
 using SteelSeries.GameSense.DeviceZone;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Animations;
 using Terraria.GameContent.RGB;
 using Terraria.ID;
@@ -53,7 +54,8 @@ public class PizzaBoss : ModNPC
         
         //AnimationType = NPCID.Skeleton;
 
-        _currentBossAI = new FirstBossStageAI(NPC);
+        //_currentBossAI = new FirstBossStageAI(NPC);
+        _currentBossAI = new SecondBossStageAI(NPC);
     }
 
     public override void AI()
@@ -116,17 +118,45 @@ public class PizzaBoss : ModNPC
             NPC.velocity = direction;
         }
         
+        protected virtual void MoveTowardsProjectile(Projectile projectile ,Vector2 targetCenter, float speed)
+        {
+            Vector2 direction = targetCenter - projectile.Center;
+
+            float magnitude = (float)Math.Sqrt(direction.X * direction.X + direction.Y * direction.Y);
+
+            if (magnitude > speed)
+            {
+                direction *= speed / magnitude;
+            }
+            
+            float turnResistance = 10f;
+            
+            direction = (projectile.velocity * turnResistance + direction) / (turnResistance + 1f);
+            magnitude = (float)Math.Sqrt(direction.X * direction.X + direction.Y * direction.Y);
+            
+            if(magnitude > speed) 
+                direction *= speed / magnitude;
+            
+            projectile.velocity = direction;
+        }
+        
         protected virtual void OnPlayerHit()
         {
         }
 
-        
-        
+        protected  void Floating()
+        {
+            if (NPC.ai[1] > 40)
+            {
+                NPC.velocity = new Vector2(Main.rand.Next(-10, 10), Main.rand.NextFloat(-4,-6));
+                NPC.ai[1] = 0;
+            }
+        }
     }
 
     internal class FirstBossStageAI : BossAI
     {
-        private float _idleDistance = 150f;
+        private float _idleDistance = 200f;
         private float _rushDistance = 130f;
         private float _timer;
         private float _timeToChangeState = 300;
@@ -140,7 +170,7 @@ public class PizzaBoss : ModNPC
         
         protected override int Damage { get; set; }
         protected override float Speed { get; set; } = 5f;
-        protected override float RushSpeed { get; set; } = 7f;
+        protected override float RushSpeed { get; set; } = 12f;
 
         public FirstBossStageAI(NPC npc) : base(npc) {}
 
@@ -154,13 +184,11 @@ public class PizzaBoss : ModNPC
             _currentTarget = Main.player[NPC.target];
 
             _timer = NPC.ai[0];
-            
-            /*if(_isIdleState)
+
+            if (_isIdleState)
                 IdleState();
             else
-                RushState();*/
-            
-            IdleState();
+                RushState();
             
             if (_timer > _timeToChangeState)
             {
@@ -170,22 +198,21 @@ public class PizzaBoss : ModNPC
                 NPC.ai[0] = 0;
             }
         }
-
+        
         private void RushState()
         {
             if(_currentTarget == null)
                 return;
 
-            MoveTowards(_currentTarget.Center);
             
-            if (Vector2.Distance(NPC.Center, _currentTarget.Center) < _rushDistance)
+            MoveTowards(_currentTarget.Center + new Vector2(_currentTarget.direction * 30, 0) );
+            
+            if (Vector2.Distance(NPC.Center, _currentTarget.Center) > _rushDistance)
             {
                 return;   
             }
 
             IsRushing = true;
-            
-            Vector2.SmoothStep(NPC.velocity, Vector2.Zero, 20);
         }
 
         private void IdleState()
@@ -206,16 +233,71 @@ public class PizzaBoss : ModNPC
                 Floating();
             }
         }
+         
+    }
+
+    internal class SecondBossStageAI : BossAI
+    {
+        private float _projectileReleaseDelay = 200;
+
+        private Player _currentTarget;
+
+        private List<Projectile> _projectiles = new();
         
-        private void Floating()
+        public override int MinLife { get; protected set; }
+        public override bool IsNeedTransit { get; protected set; }
+        
+        protected override int Damage { get; set; }
+        protected override float Speed { get; set; } = 5f;
+        protected override float RushSpeed { get; set; }
+        public SecondBossStageAI(NPC npc) : base(npc) {}
+
+        public override void Update()
         {
-            if (NPC.ai[1] > 40)
+            _currentTarget = Main.player[NPC.target];
+            NPC.TargetClosest();
+            
+            NPC.ai[2]++;
+
+            MoveProjectiles();
+            
+            if (Vector2.Distance(NPC.Center, _currentTarget.Center) > 200)
+                MoveTowards(_currentTarget.Center);
+            else
             {
-                NPC.velocity += new Vector2(Main.rand.Next(-2, 1), Main.rand.NextFloat(-2,-0.7f));
-                NPC.ai[1] = 0;
-                Debug.Log("Change velocity");
+                NPC.ai[1]++;
+                Floating();
             }
             
+            if (NPC.ai[2] > _projectileReleaseDelay)
+            {
+                var created = Projectile.NewProjectileDirect(new EntitySource_Film(), NPC.Center + new Vector2(NPC.direction * 20, 0),
+                    new Vector2(20, 0), ProjectileID.Fireball, Damage, 20);
+
+                _projectiles.Add(created);
+                
+                NPC.ai[2] = 0;
+            }
+        }
+
+        private void MoveProjectiles()
+        {
+            if(_projectiles == null || _projectiles.Count == 0)
+                return;
+            
+            foreach (var projectile in _projectiles)
+            {
+                MoveTowardsProjectile(projectile, _currentTarget.Center, 20);
+                
+                if (Vector2.Distance(projectile.Center, _currentTarget.Center) < 2f) 
+                    projectile.Kill();
+            }
+
+            for (int i = _projectiles.Count - 1; i >= 0 ; i--)
+            {
+                if (_projectiles[i] == null)
+                    _projectiles.Remove(_projectiles[i]);
+            }
         }
     }
 }
