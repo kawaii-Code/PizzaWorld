@@ -1,9 +1,7 @@
-using Microsoft.Xna.Framework;
-using PizzaWorld.Code.Data;
+using System.Collections.Generic;
+using PizzaWorld.Code.Items;
 using PizzaWorld.Code.Systems;
 using Terraria;
-using Terraria.Chat;
-using Terraria.DataStructures;
 using Terraria.GameContent.Personalities;
 using Terraria.ID;
 using Terraria.Localization;
@@ -35,57 +33,54 @@ public class PizzaDeliveryGuy : ModNPC
         AIType = NPCID.Guide;
     }
     
+    public override List<string> SetNPCNameList()
+    {
+        return new List<string>
+        {
+            Localized("Names.Name1"),
+            Localized("Names.Name2"),
+            Localized("Names.Name3"),
+            Localized("Names.Name4"),
+        };
+    }
+
     public override string GetChat()
     {
-        switch (Main.rand.Next(4))
+        return Main.rand.Next(4) switch
         {
-            case 0:
-                return "Pizza";
+            0 => Localized("Dialogue.Phrase1"),
+            1 => Localized("Dialogue.Phrase2"),
+            2 => Localized("Dialogue.Phrase3"),
+            _ => Localized("Dialogue.Phrase4"),
+        };
+    }
 
-            case 1:
-                return "Chub";
-
-            case 2:
-                return "K";
-
-            default:
-                return "Chub_k";
-        }
+    public override void AddShops()
+    {
+        NPCShop shop = new NPCShop(Type, Localized("Shop"))
+            .Add<PizzaAxe>()
+            .Add<PizzaPickaxe>()
+            .Add<PizzaYoyo>();
+        shop.FinishSetup();
+        shop.Register();
     }
 
     public override void SetChatButtons(ref string button, ref string button2)
     {
-        button = "Get pizza recipe";
-        button2 = "Get advice";
+        button = Localized("Shop");
     }
 
     public override void OnChatButtonClicked(bool firstButton, ref string shopName)
     {
         if (firstButton)
         {
-            switch (Main.rand.Next(3))
-            {
-                case 0:
-                    Main.npcChatText = PizzaRecipes.PepperoniRecipe;
-                    break;
-                
-                case 1: 
-                    Main.npcChatText = PizzaRecipes.FourCheeseRecipe;
-                    break;
-                
-                default:
-                    Main.npcChatText = "Idi v zad";
-                    break;
-            }
-            return;
+            shopName = Localized("Shop");
         }
-
-        Main.npcChatText = "Кто прочитал тот лох";
     }
 
-    public override void OnSpawn(IEntitySource source)
+    private string Localized(string key)
     {
-        base.OnSpawn(source);
-        ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral($"{NPC.type} spawned"), Color.Blue);
+        const string prefix = "Mods.PizzaWorld.NPCs.PizzaDeliveryGuy.";
+        return Language.GetText(prefix + key).Value;
     }
 }

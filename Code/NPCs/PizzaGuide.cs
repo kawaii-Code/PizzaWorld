@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using PizzaWorld.Code.Items;
+﻿using System.Collections.Generic;
 using PizzaWorld.Code.Systems;
 using Terraria;
 using Terraria.GameContent.Personalities;
@@ -13,10 +11,9 @@ namespace PizzaWorld.Code.NPCs;
 
 public class PizzaGuide : ModNPC
 {
-    private bool _isFirstTimeTalk;
-    private NPCShop _shop;
-
     private string[] _pizzaTrivia;
+    private string[] _pizzaRecipes;
+    private bool _isFirstTimeTalk;
 
     public override void SetStaticDefaults()
     {
@@ -46,16 +43,32 @@ public class PizzaGuide : ModNPC
         
         _pizzaTrivia = new[]
         {
-            Phrase("RandomPizzaTrivia1"),
-            Phrase("RandomPizzaTrivia2"),
-            Phrase("RandomPizzaTrivia3"),
-            Phrase("RandomPizzaTrivia4"),
-            Phrase("RandomPizzaTrivia5"),
-            Phrase("RandomPizzaTrivia6"),
-            Phrase("RandomPizzaTrivia7"),
-            Phrase("RandomPizzaTrivia8"),
-            Phrase("RandomPizzaTrivia9"),
-            Phrase("RandomPizzaTrivia10"),
+            Localized("Trivia.RandomPizzaTrivia1"),
+            Localized("Trivia.RandomPizzaTrivia2"),
+            Localized("Trivia.RandomPizzaTrivia3"),
+            Localized("Trivia.RandomPizzaTrivia4"),
+            Localized("Trivia.RandomPizzaTrivia5"),
+            Localized("Trivia.RandomPizzaTrivia6"),
+            Localized("Trivia.RandomPizzaTrivia7"),
+            Localized("Trivia.RandomPizzaTrivia8"),
+            Localized("Trivia.RandomPizzaTrivia9"),
+            Localized("Trivia.RandomPizzaTrivia10"),
+        };
+        _pizzaRecipes = new[]
+        {
+            Localized("Recipes.Recipe1"),
+            Localized("Recipes.Recipe2"),
+        };
+    }
+
+    public override List<string> SetNPCNameList()
+    {
+        return new List<string>
+        {
+            Localized("Names.Name1"),
+            Localized("Names.Name2"),
+            Localized("Names.Name3"),
+            Localized("Names.Name4"),
         };
     }
 
@@ -64,30 +77,26 @@ public class PizzaGuide : ModNPC
         if (_isFirstTimeTalk)
         {
             _isFirstTimeTalk = false;
-            return Phrase("Welcome");
+            return Localized("Dialogue.Welcome");
         }
-
-        return _pizzaTrivia[Main.rand.Next(0, _pizzaTrivia.Length)];
-    }
-
-    public override void AddShops()
-    {
-        base.AddShops();
-        _shop = new NPCShop(Type, "Pizza shop");
-        _shop.Add<PizzaAxe>().Add<PizzaPickaxe>().Add<PizzaYoyo>().FinishSetup();
-        _shop.Register();
+        return Localized("Dialogue.BossHint");
     }
 
     public override void SetChatButtons(ref string button, ref string button2)
     {
-        button = Localized("Shop");
+        button = Localized("PizzaRecipes");
+        button2 = Localized("PizzaFacts");
     }
 
     public override void OnChatButtonClicked(bool firstButton, ref string shopName)
     {
         if (firstButton)
         {
-            shopName = Localized("Shop");
+            Main.npcChatText = _pizzaRecipes[Main.rand.Next(_pizzaRecipes.Length)];
+        }
+        else
+        {
+            Main.npcChatText = _pizzaTrivia[Main.rand.Next(0, _pizzaTrivia.Length)];
         }
     }
 
@@ -108,7 +117,7 @@ public class PizzaGuide : ModNPC
         }
         return false;
     }
-    
+
     public override void TownNPCAttackStrength(ref int damage, ref float knockback)
     {
         damage = 20;
@@ -121,17 +130,6 @@ public class PizzaGuide : ModNPC
         randExtraCooldown = 30;
     }
 
-    public override List<string> SetNPCNameList()
-    {
-        return new List<string>
-        {
-            Localized("Name1"),
-            Localized("Name2"),
-            Localized("Name3"),
-            Localized("Name4"),
-        };
-    }
-
     public override void SaveData(TagCompound tag)
     {
         tag[nameof(_isFirstTimeTalk)] = _isFirstTimeTalk;
@@ -140,11 +138,6 @@ public class PizzaGuide : ModNPC
     public override void LoadData(TagCompound tag)
     {
         _isFirstTimeTalk = tag.GetBool(nameof(_isFirstTimeTalk));
-    }
-
-    private string Phrase(string key)
-    {
-        return Localized("Dialogue." + key);
     }
 
     private string Localized(string key)
