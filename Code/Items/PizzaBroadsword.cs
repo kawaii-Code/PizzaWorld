@@ -18,7 +18,7 @@ public class PizzaBroadsword : ModItem
     {
         if (hit.Crit)
         {
-            target.AddBuff(BuffID.Poisoned, Timings.Seconds(3));
+            target.AddBuff(BuffID.Poisoned, Time.Seconds(3));
         }
     }
 }

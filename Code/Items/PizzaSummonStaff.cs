@@ -29,7 +29,7 @@ public class PizzaSummonStaff : ModItem
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type,
         int damage, float knockback)
     {
-        player.AddBuff(ModContent.BuffType<PizzaShroomBuff>(), Timings.Seconds(6969));
+        player.AddBuff(ModContent.BuffType<PizzaShroomBuff>(), Time.Seconds(6969));
         return true;
     }
 }
