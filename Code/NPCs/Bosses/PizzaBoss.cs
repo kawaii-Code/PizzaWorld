@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using PizzaWorld.Code.Projectiles;
 using PizzaWorld.Code.Utilities;
 using SteelSeries.GameSense.DeviceZone;
 using Terraria;
@@ -242,12 +243,14 @@ public class PizzaBoss : ModNPC
 
         private Player _currentTarget;
 
-        private List<Projectile> _projectiles = new();
+        private float _projectileLifetime = 100;
+        
+        private List<ProjectileInfo> _projectiles = new();
         
         public override int MinLife { get; protected set; }
         public override bool IsNeedTransit { get; protected set; }
-        
-        protected override int Damage { get; set; }
+
+        protected override int Damage { get; set; } = 20;
         protected override float Speed { get; set; } = 5f;
         protected override float RushSpeed { get; set; }
         public SecondBossStageAI(NPC npc) : base(npc) {}
@@ -259,9 +262,10 @@ public class PizzaBoss : ModNPC
             
             NPC.ai[2]++;
 
+            HandleProjectileLifetime();
             MoveProjectiles();
             
-            if (Vector2.Distance(NPC.Center, _currentTarget.Center) > 200)
+            if (Vector2.Distance(NPC.Center, _currentTarget.Center) > 300)
                 MoveTowards(_currentTarget.Center);
             else
             {
@@ -271,10 +275,14 @@ public class PizzaBoss : ModNPC
             
             if (NPC.ai[2] > _projectileReleaseDelay)
             {
-                var created = Projectile.NewProjectileDirect(new EntitySource_Film(), NPC.Center + new Vector2(NPC.direction * 20, 0),
-                    new Vector2(20, 0), ProjectileID.Fireball, Damage, 20);
+                var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]), NPC.Center + new Vector2(NPC.direction * 20, 0),
+                    new Vector2(20, 0), ModContent.ProjectileType<PizzaProjectile>(), Damage, 20);
 
-                _projectiles.Add(created);
+                created.tileCollide = false;
+                created.friendly = false;
+                created.damage = 20;
+                
+                _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 100});
                 
                 NPC.ai[2] = 0;
             }
@@ -287,10 +295,13 @@ public class PizzaBoss : ModNPC
             
             foreach (var projectile in _projectiles)
             {
-                MoveTowardsProjectile(projectile, _currentTarget.Center, 20);
+                if (projectile.Projectile == null)
+                    continue;
                 
-                if (Vector2.Distance(projectile.Center, _currentTarget.Center) < 2f) 
-                    projectile.Kill();
+                MoveTowardsProjectile(projectile.Projectile, _currentTarget.Center, 10);
+                
+                /*if (Vector2.Distance(projectile.Projectile.Center, _currentTarget.Center) < 2f) 
+                    //projectile.Projectile.Kill();*/
             }
 
             for (int i = _projectiles.Count - 1; i >= 0 ; i--)
@@ -298,6 +309,33 @@ public class PizzaBoss : ModNPC
                 if (_projectiles[i] == null)
                     _projectiles.Remove(_projectiles[i]);
             }
+        }
+
+        private void HandleProjectileLifetime()
+        {
+            foreach (var projectile in _projectiles)
+            {
+                if (projectile.Projectile.ai[0] - projectile.StartTime >= projectile.KillTime)
+                {
+                    projectile.Projectile.Kill();
+                    projectile.Killed = true;
+                    Debug.Log("Projectile killed");
+                }
+            }
+
+            for (int i = _projectiles.Count - 1; i >= 0 ; i--)
+            {
+                if (_projectiles[i].Killed == true) 
+                    _projectiles.Remove(_projectiles[i]);
+            }   
+        }
+
+        class ProjectileInfo
+        {
+            public Projectile Projectile;
+            public float StartTime;
+            public float KillTime;
+            public bool Killed;
         }
     }
 }

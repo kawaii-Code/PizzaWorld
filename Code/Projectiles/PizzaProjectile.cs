@@ -10,7 +10,7 @@ public class PizzaProjectile : ModProjectile
     {
         Projectile.width = 34;
         Projectile.height = 26;
-        Projectile.friendly = true;
+        Projectile.friendly = false;
         Projectile.ignoreWater = true;
 
         Projectile.tileCollide = false;
@@ -18,6 +18,7 @@ public class PizzaProjectile : ModProjectile
         Projectile.DamageType = DamageClass.Magic;
         Projectile.aiStyle = -1;
         Projectile.penetrate = -1;
+        this.Projectile.damage = 20;
     }
 
     public override void AI()
@@ -47,6 +48,17 @@ public class PizzaProjectile : ModProjectile
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<PizzaDust>(), Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f,
                     0, default(Color), 1f);
             }
+        }
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        int numToSpawn = Main.rand.Next(15);
+        
+        for(int i = 0; i < numToSpawn; i++)
+        {
+            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, ModContent.DustType<PizzaDust>(), Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f,
+                0, default(Color), 1f);
         }
     }
 }
