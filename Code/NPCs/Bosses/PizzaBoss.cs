@@ -49,6 +49,7 @@ public class PizzaBoss : ModNPC
 
         NPC.lavaImmune = true;
         NPC.noTileCollide = true;
+        NPC.netAlways = true;
         NPC.noGravity = true;
         
         NPC.boss = true;
@@ -282,14 +283,11 @@ public class PizzaBoss : ModNPC
         {
             _currentTarget = Main.player[NPC.target];
             NPC.TargetClosest();
+            
+            NPC.ai[2]++;
 
             HandleProjectileLifetime();
             MoveProjectiles();
-
-            for (int i = 0; i < _projectiles.Count; i++)
-            {
-                _projectiles[i].Projectile.netUpdate = true;
-            }
             
             if (Vector2.Distance(NPC.Center, _currentTarget.Center) > 300)
                 MoveTowards(_currentTarget.Center);
@@ -298,31 +296,34 @@ public class PizzaBoss : ModNPC
                 NPC.ai[1]++;
                 Floating();
             }
-
-            NPC.ai[2]++;
+            
             if (NPC.ai[2] > _projectileReleaseDelay)
             {
-                for (int i = 0; i < Main.maxPlayers; i++)
+                if(Main.netMode == NetmodeID.MultiplayerClient)
+                    return;
+                
+                Player projectileTarget = Main.player[NPC.target];
+
+                for (int i = 0; i < _players.Count; i++)
                 {
-                    Player player = Main.player[i];
-                    if (!player.active)
-                    {
-                        continue;
-                    }
-                        
-                    int projectileId = Projectile.NewProjectile(new EntitySource_BossSpawn(Main.player[NPC.target]), NPC.Center + new Vector2(NPC.direction * 20, 0),
+                    if (i < _players.Count)
+                        projectileTarget = _players[i];
+                    
+                    Debug.Log("Projectile target - " + projectileTarget.name);
+                    
+                    var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]), NPC.Center + new Vector2(NPC.direction * 20, 0),
                         Vector2.Zero, ModContent.ProjectileType<PizzaProjectile>(), Damage, 20);
 
-                    Projectile created = Main.projectile[projectileId];
                     created.tileCollide = false;
                     created.friendly = false;
                     created.damage = 20;
+                    created.netImportant = true;
                     created.hostile = true;
-                
-                    _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 150, Target = player });
-                
-                    NPC.ai[2] = 0;
+                    
+                    _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 150, Target = projectileTarget});
                 }
+                
+                NPC.ai[2] = 0;
             }
         }
 
@@ -338,8 +339,8 @@ public class PizzaBoss : ModNPC
                 
                 MoveTowardsProjectile(projectile.Projectile, projectile.Target.Center, 13);
                 
-                if (Vector2.Distance(projectile.Projectile.Center, projectile.Target.Center) < 2f) 
-                    projectile.Projectile.Kill();
+                /*if (Vector2.Distance(projectile.Projectile.Center, projectile.Target.Center) < 2f) 
+                    projectile.Projectile.Kill();*/
             }
 
             for (int i = _projectiles.Count - 1; i >= 0 ; i--)
