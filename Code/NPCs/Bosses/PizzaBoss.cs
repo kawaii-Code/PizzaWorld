@@ -282,11 +282,14 @@ public class PizzaBoss : ModNPC
         {
             _currentTarget = Main.player[NPC.target];
             NPC.TargetClosest();
-            
-            NPC.ai[2]++;
 
             HandleProjectileLifetime();
             MoveProjectiles();
+
+            for (int i = 0; i < _projectiles.Count; i++)
+            {
+                _projectiles[i].Projectile.netUpdate = true;
+            }
             
             if (Vector2.Distance(NPC.Center, _currentTarget.Center) > 300)
                 MoveTowards(_currentTarget.Center);
@@ -295,31 +298,31 @@ public class PizzaBoss : ModNPC
                 NPC.ai[1]++;
                 Floating();
             }
-            
+
+            NPC.ai[2]++;
             if (NPC.ai[2] > _projectileReleaseDelay)
             {
-                Player projectileTarget = Main.player[NPC.target];
-                
-                if (_projectileTargetIndex < _players.Count)
+                for (int i = 0; i < Main.maxPlayers; i++)
                 {
-                    projectileTarget = _players[_projectileTargetIndex];
+                    Player player = Main.player[i];
+                    if (!player.active)
+                    {
+                        continue;
+                    }
+                        
+                    int projectileId = Projectile.NewProjectile(new EntitySource_BossSpawn(Main.player[NPC.target]), NPC.Center + new Vector2(NPC.direction * 20, 0),
+                        Vector2.Zero, ModContent.ProjectileType<PizzaProjectile>(), Damage, 20);
+
+                    Projectile created = Main.projectile[projectileId];
+                    created.tileCollide = false;
+                    created.friendly = false;
+                    created.damage = 20;
+                    created.hostile = true;
+                
+                    _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 150, Target = player });
+                
+                    NPC.ai[2] = 0;
                 }
-                else
-                    _projectileTargetIndex = 0;
- 
-                _projectileTargetIndex++;
-
-                var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]), NPC.Center + new Vector2(NPC.direction * 20, 0),
-                    Vector2.Zero, ModContent.ProjectileType<PizzaProjectile>(), Damage, 20);
-
-                created.tileCollide = false;
-                created.friendly = false;
-                created.damage = 20;
-                created.hostile = true;
-                
-                _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 150, Target = projectileTarget});
-                
-                NPC.ai[2] = 0;
             }
         }
 
