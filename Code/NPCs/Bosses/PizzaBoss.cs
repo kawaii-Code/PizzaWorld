@@ -252,8 +252,6 @@ public class PizzaBoss : ModNPC
 
         private int _projectileTargetIndex = 0;
 
-        private Player _projectileTarget;
-
         private List<Player> _players = new();
         
         private float _projectileLifetime = 100;
@@ -300,27 +298,26 @@ public class PizzaBoss : ModNPC
             
             if (NPC.ai[2] > _projectileReleaseDelay)
             {
+                Player projectileTarget = Main.player[NPC.target];
+                
                 if (_projectileTargetIndex < _players.Count)
                 {
-                    _projectileTarget = _players[_projectileTargetIndex];
-                    Debug.Log(_projectileTarget);
+                    projectileTarget = _players[_projectileTargetIndex];
                 }
                 else
                     _projectileTargetIndex = 0;
  
                 _projectileTargetIndex++;
-                
-                Debug.Log(_projectileTarget.name);
-                
+
                 var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]), NPC.Center + new Vector2(NPC.direction * 20, 0),
-                    new Vector2(20, 0), ModContent.ProjectileType<PizzaProjectile>(), Damage, 20);
+                    Vector2.Zero, ModContent.ProjectileType<PizzaProjectile>(), Damage, 20);
 
                 created.tileCollide = false;
                 created.friendly = false;
                 created.damage = 20;
                 created.hostile = true;
                 
-                _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 150});
+                _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 150, Target = projectileTarget});
                 
                 NPC.ai[2] = 0;
             }
@@ -335,13 +332,10 @@ public class PizzaBoss : ModNPC
             {
                 if (projectile.Projectile == null)
                     continue;
-
-                if (_projectileTarget == null)
-                    _projectileTarget = Main.player[NPC.target];
                 
-                MoveTowardsProjectile(projectile.Projectile, _projectileTarget.Center, 13);
+                MoveTowardsProjectile(projectile.Projectile, projectile.Target.Center, 13);
                 
-                if (Vector2.Distance(projectile.Projectile.Center, _currentTarget.Center) < 2f) 
+                if (Vector2.Distance(projectile.Projectile.Center, projectile.Target.Center) < 2f) 
                     projectile.Projectile.Kill();
             }
 
@@ -374,6 +368,7 @@ public class PizzaBoss : ModNPC
         class ProjectileInfo
         {
             public Projectile Projectile;
+            public Player Target;
             public float StartTime;
             public float KillTime;
             public bool Killed;
