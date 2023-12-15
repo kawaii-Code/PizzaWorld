@@ -10,7 +10,7 @@ public class PizzaProjectile : ModProjectile
     {
         Projectile.width = 34;
         Projectile.height = 26;
-        Projectile.friendly = false;
+        Projectile.friendly = true;
         Projectile.ignoreWater = true;
 
         Projectile.tileCollide = false;
@@ -53,7 +53,7 @@ public class PizzaProjectile : ModProjectile
 
     public override void OnKill(int timeLeft)
     {
-        int numToSpawn = Main.rand.Next(15);
+        int numToSpawn = Main.rand.Next(25);
         
         for(int i = 0; i < numToSpawn; i++)
         {

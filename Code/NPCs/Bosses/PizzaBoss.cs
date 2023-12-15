@@ -57,6 +57,8 @@ public class PizzaBoss : ModNPC
 
         //_currentBossAI = new FirstBossStageAI(NPC);
         _currentBossAI = new SecondBossStageAI(NPC);
+        
+        _currentBossAI.Start();
     }
 
     public override void AI()
@@ -95,6 +97,10 @@ public class PizzaBoss : ModNPC
 
         public BossAI(NPC npc) => NPC = npc;
 
+        public virtual void Start()
+        {
+        }
+        
         protected virtual void MoveTowards(Vector2 targetCenter)
         {
             var speed = IsRushing ? RushSpeed : Speed;
@@ -175,6 +181,8 @@ public class PizzaBoss : ModNPC
 
         public FirstBossStageAI(NPC npc) : base(npc) {}
 
+        
+        
         public override void Update()
         {
             if (NPC.life <= MinLife)
@@ -205,7 +213,6 @@ public class PizzaBoss : ModNPC
             if(_currentTarget == null)
                 return;
 
-            
             MoveTowards(_currentTarget.Center + new Vector2(_currentTarget.direction * 30, 0) );
             
             if (Vector2.Distance(NPC.Center, _currentTarget.Center) > _rushDistance)
@@ -243,6 +250,12 @@ public class PizzaBoss : ModNPC
 
         private Player _currentTarget;
 
+        private int _projectileTargetIndex = 0;
+
+        private Player _projectileTarget;
+
+        private List<Player> _players = new();
+        
         private float _projectileLifetime = 100;
         
         private List<ProjectileInfo> _projectiles = new();
@@ -254,6 +267,18 @@ public class PizzaBoss : ModNPC
         protected override float Speed { get; set; } = 5f;
         protected override float RushSpeed { get; set; }
         public SecondBossStageAI(NPC npc) : base(npc) {}
+
+        public override void Start()
+        {
+            foreach (var plr in Main.player)
+            {
+                if (plr.active)
+                    _players.Add(plr);
+                
+            }
+            
+            Debug.Log("Count " + _players.Count);
+        }
 
         public override void Update()
         {
@@ -275,14 +300,27 @@ public class PizzaBoss : ModNPC
             
             if (NPC.ai[2] > _projectileReleaseDelay)
             {
+                if (_projectileTargetIndex < _players.Count)
+                {
+                    _projectileTarget = _players[_projectileTargetIndex];
+                    Debug.Log(_projectileTarget);
+                }
+                else
+                    _projectileTargetIndex = 0;
+ 
+                _projectileTargetIndex++;
+                
+                Debug.Log(_projectileTarget.name);
+                
                 var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]), NPC.Center + new Vector2(NPC.direction * 20, 0),
                     new Vector2(20, 0), ModContent.ProjectileType<PizzaProjectile>(), Damage, 20);
 
                 created.tileCollide = false;
                 created.friendly = false;
                 created.damage = 20;
+                created.hostile = true;
                 
-                _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 100});
+                _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 150});
                 
                 NPC.ai[2] = 0;
             }
@@ -297,11 +335,14 @@ public class PizzaBoss : ModNPC
             {
                 if (projectile.Projectile == null)
                     continue;
+
+                if (_projectileTarget == null)
+                    _projectileTarget = Main.player[NPC.target];
                 
-                MoveTowardsProjectile(projectile.Projectile, _currentTarget.Center, 10);
+                MoveTowardsProjectile(projectile.Projectile, _projectileTarget.Center, 13);
                 
-                /*if (Vector2.Distance(projectile.Projectile.Center, _currentTarget.Center) < 2f) 
-                    //projectile.Projectile.Kill();*/
+                if (Vector2.Distance(projectile.Projectile.Center, _currentTarget.Center) < 2f) 
+                    projectile.Projectile.Kill();
             }
 
             for (int i = _projectiles.Count - 1; i >= 0 ; i--)
