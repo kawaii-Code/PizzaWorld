@@ -5,6 +5,7 @@ using PizzaWorld.Code.Projectiles;
 using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -60,6 +61,9 @@ public class PizzaBoss : ModNPC
 
     public override void AI()
     {
+        if(Main.netMode == NetmodeID.MultiplayerClient)
+            return;
+        
         NPC.ai[0]++;
         _currentBossAI.Update();
         CheckStageTransit();
@@ -346,7 +350,7 @@ public class PizzaBoss : ModNPC
 
                 //Item.NewItem(new EntitySource_Loot(Main.item[ItemID.Pizza]),(int)NPC.Center.X , (int)NPC.Center.Y , 32, 16, ItemID.Pizza, 1);
                 
-                NPC.DropItemInstanced(NPC.Center + new Vector2(0, 30), new Vector2(20, 20), ItemID.Pizza);
+                //NPC.DropItemInstanced(NPC.Center + new Vector2(0, 30), new Vector2(20, 20), ItemID.Pizza);
                 
                 NPC.ai[2] = 0;
                 return;
@@ -361,6 +365,7 @@ public class PizzaBoss : ModNPC
             {
                 var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]),
                     NPC.position + new Vector2(0, 30), Vector2.Zero, ProjectileID.Boulder, 200, 20);
+                
                 NPC.ai[2] = 0;
             }
         }

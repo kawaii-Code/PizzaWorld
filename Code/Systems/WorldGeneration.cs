@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using MonoMod.Cil;
+using PizzaWorld.Code.Items.Food;
 using PizzaWorld.Code.NPCs.Bosses;
 using Terraria;
 using Terraria.GameInput;
@@ -31,6 +32,11 @@ public class WorldGeneration : ModSystem
         {
             PizzaWorld.SpawnNPC<PizzaBoss>();
             Debug.Log("Spawned");
+        }
+
+        if (KeyDown(Keys.N))
+        {
+            PizzaWorld.SpawnItem<Napoletana>((int)(Main.player[Main.myPlayer].Center.X + 10f) ,(int)(Main.player[Main.myPlayer].Center.Y ));
         }
     }
 
