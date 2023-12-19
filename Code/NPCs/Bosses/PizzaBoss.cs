@@ -81,6 +81,10 @@ public class PizzaBoss : ModNPC
                 return;
             
             _currentBossAI = new ThirdBossStageAI(NPC);
+            this.NPC.AddBuff(BuffID.Ironskin, 200000);
+            this.NPC.AddBuff(BuffID.Regeneration, 200000);
+            this.NPC.AddBuff(BuffID.Honey, 200000);
+            this.NPC.AddBuff(BuffID.Honey, 200000);
             Debug.Log("Boss : Твоя взяля. Я сдаюсь. Не убивай меня... Возьми лучше это", Color.Aqua);
         }
     }
@@ -302,7 +306,7 @@ public class PizzaBoss : ModNPC
     
     internal class ThirdBossStageAI : BossAI
     {
-        private float _bombReleaseDelay = 100;
+        private float _bombReleaseDelay = 40;
         
         private Player _currentTarget;
 
@@ -331,16 +335,19 @@ public class PizzaBoss : ModNPC
             NPC.TargetClosest();
             _currentTarget = Main.player[NPC.target];
 
-            MoveTowards(_currentTarget.Center + new Vector2(0, -200));
+            MoveTowards(_currentTarget.Center + new Vector2(0, -250));
 
             NPC.ai[2]++;
 
-            if (NPC.ai[2] > _bombReleaseDelay && _pizzaDropCounter <= 10)
+            if (NPC.ai[2] > _bombReleaseDelay && _pizzaDropCounter <= 15)
             {
                 _pizzaDropCounter++;
                 Debug.Log("Pizza Drop");
-                
 
+                //Item.NewItem(new EntitySource_Loot(Main.item[ItemID.Pizza]),(int)NPC.Center.X , (int)NPC.Center.Y , 32, 16, ItemID.Pizza, 1);
+                
+                NPC.DropItemInstanced(NPC.Center + new Vector2(0, 30), new Vector2(20, 20), ItemID.Pizza);
+                
                 NPC.ai[2] = 0;
                 return;
             }
@@ -353,7 +360,7 @@ public class PizzaBoss : ModNPC
             if (NPC.ai[2] > _bombReleaseDelay)
             {
                 var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]),
-                    NPC.position + new Vector2(0, 50), Vector2.Zero, ProjectileID.Bomb, 200, 20);
+                    NPC.position + new Vector2(0, 30), Vector2.Zero, ProjectileID.Boulder, 200, 20);
                 NPC.ai[2] = 0;
             }
         }
