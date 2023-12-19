@@ -11,6 +11,11 @@ public static class Debug
         Message(message.ToString(), Color.White);
     }
 
+    public static void Log(object message, Color color)
+    {
+        Message(message.ToString(), color);
+    }
+    
     public static void LogWarning(string message)
     {
         Message(message, Color.Orange);

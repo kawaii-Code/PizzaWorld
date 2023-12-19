@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Projectiles;
 using PizzaWorld.Code.Utilities;
-using SteelSeries.GameSense.DeviceZone;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent.Animations;
-using Terraria.GameContent.RGB;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,6 +15,9 @@ public class PizzaBoss : ModNPC
 {
     private BossAI _currentBossAI;
     
+    public BossAI CurrentBossAI => _currentBossAI;
+    public static PizzaBoss Instance { get; private set; }
+
     public enum BossStage
     {
         First,
@@ -33,6 +32,8 @@ public class PizzaBoss : ModNPC
 
     public override void SetDefaults()
     {
+        Instance = this;
+        
         //replace
         NPC.width = 2;
         NPC.height = 2;
@@ -52,12 +53,8 @@ public class PizzaBoss : ModNPC
         NPC.noGravity = true;
         
         NPC.boss = true;
-        
-        //AnimationType = NPCID.Skeleton;
 
-        //_currentBossAI = new FirstBossStageAI(NPC);
-        _currentBossAI = new SecondBossStageAI(NPC);
-        
+        _currentBossAI = new FirstBossStageAI(NPC);
         _currentBossAI.Start();
     }
 
@@ -70,13 +67,25 @@ public class PizzaBoss : ModNPC
 
     private void CheckStageTransit()
     {
-        if (_currentBossAI.IsNeedTransit)
+        if (this.NPC.life < 7000 && NPC.life > 3000)
         {
-            //transit to next stage
+            if(_currentBossAI.StageID == 2)
+                return;
+            
+            _currentBossAI = new SecondBossStageAI(NPC);
+            Debug.Log("Boss : Нет! Тебе меня не победить АХАХАХА (лох)", Color.Purple);
+        }
+        else if (NPC.life < 3000)
+        {
+            if(_currentBossAI.StageID == 3)
+                return;
+            
+            _currentBossAI = new ThirdBossStageAI(NPC);
+            Debug.Log("Boss : Твоя взяля. Я сдаюсь. Не убивай меня... Возьми лучше это", Color.Aqua);
         }
     }
 
-    internal abstract class BossAI
+    public abstract class BossAI
     {
         private float _intertia;
         private float _velocity;
@@ -86,20 +95,23 @@ public class PizzaBoss : ModNPC
         public abstract int MinLife { get; protected set; }
         public abstract bool IsNeedTransit { get; protected set; }
         
+        public abstract int StageID { get; protected set; }
+        
         protected abstract int Damage { get; set; }
         protected abstract float Speed { get; set; }
         protected abstract float RushSpeed { get; set; }
         
-        protected bool IsStunned { get; set; }
         protected bool IsRushing { get; set; }
 
         public abstract void Update();
 
+        public Player CurrentProjectileTarget { get; protected set; }
+        
         public BossAI(NPC npc) => NPC = npc;
 
-        public virtual void Start()
-        {
-        }
+        public virtual void Start() {}
+        
+        public virtual void OnTransit() {}
         
         protected virtual void MoveTowards(Vector2 targetCenter)
         {
@@ -125,32 +137,6 @@ public class PizzaBoss : ModNPC
             NPC.velocity = direction;
         }
         
-        protected virtual void MoveTowardsProjectile(Projectile projectile ,Vector2 targetCenter, float speed)
-        {
-            Vector2 direction = targetCenter - projectile.Center;
-
-            float magnitude = (float)Math.Sqrt(direction.X * direction.X + direction.Y * direction.Y);
-
-            if (magnitude > speed)
-            {
-                direction *= speed / magnitude;
-            }
-            
-            float turnResistance = 10f;
-            
-            direction = (projectile.velocity * turnResistance + direction) / (turnResistance + 1f);
-            magnitude = (float)Math.Sqrt(direction.X * direction.X + direction.Y * direction.Y);
-            
-            if(magnitude > speed) 
-                direction *= speed / magnitude;
-            
-            projectile.velocity = direction;
-        }
-        
-        protected virtual void OnPlayerHit()
-        {
-        }
-
         protected  void Floating()
         {
             if (NPC.ai[1] > 40)
@@ -174,9 +160,10 @@ public class PizzaBoss : ModNPC
         
         public override int MinLife { get; protected set; }
         public override bool IsNeedTransit { get; protected set; } = false;
-        
+        public override int StageID { get; protected set; } = 1;
+
         protected override int Damage { get; set; }
-        protected override float Speed { get; set; } = 5f;
+        protected override float Speed { get; set; } = 9f;
         protected override float RushSpeed { get; set; } = 12f;
 
         public FirstBossStageAI(NPC npc) : base(npc) {}
@@ -201,7 +188,6 @@ public class PizzaBoss : ModNPC
             
             if (_timer > _timeToChangeState)
             {
-                Debug.Log("ChangeState");
                 _isIdleState = !_isIdleState;
                 _timer = 0;
                 NPC.ai[0] = 0;
@@ -246,36 +232,30 @@ public class PizzaBoss : ModNPC
 
     internal class SecondBossStageAI : BossAI
     {
-        private float _projectileReleaseDelay = 200;
+        private float _projectileReleaseDelay = 100;
 
         private Player _currentTarget;
 
         private int _projectileTargetIndex = 0;
 
         private List<Player> _players = new();
-        
-        private float _projectileLifetime = 100;
-        
-        private List<ProjectileInfo> _projectiles = new();
-        
+          
         public override int MinLife { get; protected set; }
         public override bool IsNeedTransit { get; protected set; }
+        public override int StageID { get; protected set; } = 2;
 
         protected override int Damage { get; set; } = 20;
-        protected override float Speed { get; set; } = 5f;
+        protected override float Speed { get; set; } = 9f;
         protected override float RushSpeed { get; set; }
         public SecondBossStageAI(NPC npc) : base(npc) {}
-
+        
         public override void Start()
         {
-            foreach (var plr in Main.player)
+            foreach (var player in Main.player)
             {
-                if (plr.active)
-                    _players.Add(plr);
-                
+                if (player.active)
+                    _players.Add(player);
             }
-            
-            Debug.Log("Count " + _players.Count);
         }
 
         public override void Update()
@@ -283,14 +263,6 @@ public class PizzaBoss : ModNPC
             _currentTarget = Main.player[NPC.target];
             NPC.TargetClosest();
 
-            HandleProjectileLifetime();
-            MoveProjectiles();
-
-            for (int i = 0; i < _projectiles.Count; i++)
-            {
-                _projectiles[i].Projectile.netUpdate = true;
-            }
-            
             if (Vector2.Distance(NPC.Center, _currentTarget.Center) > 300)
                 MoveTowards(_currentTarget.Center);
             else
@@ -309,72 +281,81 @@ public class PizzaBoss : ModNPC
                     {
                         continue;
                     }
-                        
+
+                    CurrentProjectileTarget = player;
+                    
                     int projectileId = Projectile.NewProjectile(new EntitySource_BossSpawn(Main.player[NPC.target]), NPC.Center + new Vector2(NPC.direction * 20, 0),
-                        Vector2.Zero, ModContent.ProjectileType<PizzaProjectile>(), Damage, 20);
+                        Vector2.Zero, ModContent.ProjectileType<PizzaBossProjectile>(), Damage, 20);
 
                     Projectile created = Main.projectile[projectileId];
+                    
                     created.tileCollide = false;
                     created.friendly = false;
                     created.damage = 20;
                     created.hostile = true;
                 
-                    _projectiles.Add(new ProjectileInfo{ Projectile = created, StartTime = created.ai[0], KillTime = 150, Target = player });
-                
                     NPC.ai[2] = 0;
                 }
             }
         }
+    }
+    
+    internal class ThirdBossStageAI : BossAI
+    {
+        private float _bombReleaseDelay = 100;
+        
+        private Player _currentTarget;
 
-        private void MoveProjectiles()
+        private int _pizzaDropCounter;
+        
+        public override int MinLife { get; protected set; }
+        public override bool IsNeedTransit { get; protected set; }
+        public override int StageID { get; protected set; } = 3;
+
+        protected override int Damage { get; set; }
+        protected override float Speed { get; set; } = 50f;
+        protected override float RushSpeed { get; set; }
+        
+        public ThirdBossStageAI(NPC npc) : base(npc)
         {
-            if(_projectiles == null || _projectiles.Count == 0)
+        }
+
+        public override void OnTransit()
+        {
+            NPC.ai[2] = 0;
+            NPC.friendly = true;
+        }
+
+        public override void Update()
+        {
+            NPC.TargetClosest();
+            _currentTarget = Main.player[NPC.target];
+
+            MoveTowards(_currentTarget.Center + new Vector2(0, -200));
+
+            NPC.ai[2]++;
+
+            if (NPC.ai[2] > _bombReleaseDelay && _pizzaDropCounter <= 10)
+            {
+                _pizzaDropCounter++;
+                Debug.Log("Pizza Drop");
+                
+
+                NPC.ai[2] = 0;
                 return;
+            }
+
+            if(_pizzaDropCounter < 10)
+                return;
+
+            _pizzaDropCounter = 100;
             
-            foreach (var projectile in _projectiles)
+            if (NPC.ai[2] > _bombReleaseDelay)
             {
-                if (projectile.Projectile == null)
-                    continue;
-                
-                MoveTowardsProjectile(projectile.Projectile, projectile.Target.Center, 13);
-                
-                if (Vector2.Distance(projectile.Projectile.Center, projectile.Target.Center) < 2f) 
-                    projectile.Projectile.Kill();
+                var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]),
+                    NPC.position + new Vector2(0, 50), Vector2.Zero, ProjectileID.Bomb, 200, 20);
+                NPC.ai[2] = 0;
             }
-
-            for (int i = _projectiles.Count - 1; i >= 0 ; i--)
-            {
-                if (_projectiles[i] == null)
-                    _projectiles.Remove(_projectiles[i]);
-            }
-        }
-
-        private void HandleProjectileLifetime()
-        {
-            foreach (var projectile in _projectiles)
-            {
-                if (projectile.Projectile.ai[0] - projectile.StartTime >= projectile.KillTime)
-                {
-                    projectile.Projectile.Kill();
-                    projectile.Killed = true;
-                    Debug.Log("Projectile killed");
-                }
-            }
-
-            for (int i = _projectiles.Count - 1; i >= 0 ; i--)
-            {
-                if (_projectiles[i].Killed == true) 
-                    _projectiles.Remove(_projectiles[i]);
-            }   
-        }
-
-        class ProjectileInfo
-        {
-            public Projectile Projectile;
-            public Player Target;
-            public float StartTime;
-            public float KillTime;
-            public bool Killed;
         }
     }
 }

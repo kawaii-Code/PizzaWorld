@@ -236,4 +236,5 @@ Projectiles: {
 	PizzaShroom.DisplayName: Пицца Гриб
 	PizzaProjectile.DisplayName: Летящая Пицца
 	PizzaYoyoProjectile.DisplayName: Пицца Йо-Йо
+	PizzaBossProjectile.DisplayName: Pizza Boss Projectile
 }
