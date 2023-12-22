@@ -2,6 +2,11 @@
 
 public static class Price
 {
+    public static int Copper(int value)
+    {
+        return value;
+    }
+    
     public static int Silver(int value)
     {
         return 100 * value;

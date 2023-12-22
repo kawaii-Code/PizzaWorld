@@ -1,4 +1,5 @@
-﻿using PizzaWorld.Code.Utilities;
+﻿using PizzaWorld.Code.Items.Food;
+using PizzaWorld.Code.Utilities;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,5 +14,13 @@ public class PizzaBow : ModItem
         Item.crit = 7;
         Item.useTime = 25;
         Item.value = Price.Silver(25);
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddRecipeGroup(RecipeGroupID.Wood, 3)
+            .AddIngredient<Margherita>(2)
+            .Register();
     }
 }

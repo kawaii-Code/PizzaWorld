@@ -1,4 +1,5 @@
-﻿using PizzaWorld.Code.Projectiles;
+﻿using PizzaWorld.Code.Items.Food;
+using PizzaWorld.Code.Projectiles;
 using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.ID;
@@ -30,9 +31,9 @@ public class PizzaStaff : ModItem
     public override void AddRecipes()
     {
         CreateRecipe()
-            .AddRecipeGroup(ItemID.Wood, 5)
-            .AddIngredient(ItemID.Pizza)
-            .AddTile(TileID.Anvils)
+            .AddRecipeGroup(ItemID.Wood, 3)
+            .AddIngredient<Margherita>(2)
+            .AddTile(TileID.WorkBenches)
             .Register();
     }
 

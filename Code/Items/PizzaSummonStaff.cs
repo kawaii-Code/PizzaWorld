@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Buffs;
+using PizzaWorld.Code.Items.Food;
 using PizzaWorld.Code.NPCs;
 using PizzaWorld.Code.Utilities;
 using Terraria;
@@ -24,6 +25,7 @@ public class PizzaSummonStaff : ModItem
         Item.useStyle = ItemUseStyleID.Swing;
         Item.useTime = 28;
         Item.useAnimation = 28;
+        Item.UseSound = SoundID.Item44;
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type,
@@ -31,5 +33,13 @@ public class PizzaSummonStaff : ModItem
     {
         player.AddBuff(ModContent.BuffType<PizzaShroomBuff>(), Time.Seconds(6969));
         return true;
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.SlimeStaff)
+            .AddIngredient<Margherita>(2)
+            .AddTile(TileID.WorkBenches);
     }
 }

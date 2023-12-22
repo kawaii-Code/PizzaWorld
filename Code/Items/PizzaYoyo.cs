@@ -1,4 +1,5 @@
-﻿using PizzaWorld.Code.Projectiles;
+﻿using PizzaWorld.Code.Items.Food;
+using PizzaWorld.Code.Projectiles;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,5 +19,14 @@ public class PizzaYoyo : ModItem
         Item.CloneDefaults(ItemID.Rally);
         Item.shoot = ModContent.ProjectileType<PizzaYoyoProjectile>();
         Item.damage = 16;
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddRecipeGroup(RecipeGroupID.Wood, 3)
+            .AddIngredient(ItemID.Cobweb, 3)
+            .AddIngredient<Margherita>(2)
+            .Register();
     }
 }

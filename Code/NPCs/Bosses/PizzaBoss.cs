@@ -5,7 +5,6 @@ using PizzaWorld.Code.Projectiles;
 using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,7 +14,6 @@ namespace PizzaWorld.Code.NPCs.Bosses;
 public class PizzaBoss : ModNPC
 {
     private BossAI _currentBossAI;
-    
     public BossAI CurrentBossAI => _currentBossAI;
     public static PizzaBoss Instance { get; private set; }
 
@@ -36,8 +34,8 @@ public class PizzaBoss : ModNPC
         Instance = this;
         
         //replace
-        NPC.width = 2;
-        NPC.height = 2;
+        NPC.width = 65*3;
+        NPC.height = 65*3;
 
         NPC.aiStyle = -1;
         NPC.npcSlots = 5f;

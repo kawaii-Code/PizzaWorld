@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using PizzaWorld.Code.Items;
+using PizzaWorld.Code.Items.Food;
 using PizzaWorld.Code.Systems;
 using Terraria;
 using Terraria.GameContent.Personalities;
@@ -58,9 +59,12 @@ public class PizzaDeliveryGuy : ModNPC
     public override void AddShops()
     {
         NPCShop shop = new NPCShop(Type, Localized("Shop"))
-            .Add<PizzaAxe>()
-            .Add<PizzaPickaxe>()
-            .Add<PizzaYoyo>();
+            .Add<BasicPizza>()
+            .Add<Champignon>()
+            .Add<FourCheeses>()
+            .Add<Napoletana>()
+            .Add<Barbeque>()
+            .Add<PizzaWing>();
         shop.FinishSetup();
         shop.Register();
     }
