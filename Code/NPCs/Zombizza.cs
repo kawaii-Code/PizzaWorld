@@ -22,6 +22,9 @@ public class Zombizza : ModNPC
     {
         NPC.CloneDefaults(NPCID.Zombie);
         AnimationType = NPCID.Zombie;
+
+        NPC.HitSound = SoundID.NPCHit1;
+        NPC.DeathSound = SoundID.NPCDeath13;
     }
 
     public override void ModifyNPCLoot(NPCLoot npcLoot)

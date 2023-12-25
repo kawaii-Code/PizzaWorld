@@ -20,6 +20,7 @@ public class MushroomBug : ModNPC
         NPC.CloneDefaults(NPCID.Buggy);
         NPC.width = 16;
         NPC.height = 12;
+        NPC.DeathSound = SoundID.NPCDeath9;
         AnimationType = NPCID.Buggy;
     }
 

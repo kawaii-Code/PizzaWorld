@@ -20,6 +20,8 @@ public class PizzaBat : ModNPC
         NPC.CloneDefaults(NPCID.JungleBat);
         AnimationType = NPCID.JungleBat;
         AIType = NPCID.JungleBat;
+        NPC.DeathSound = SoundID.NPCDeath4;
+        NPC.HitSound = SoundID.NPCHit1;
     }
 
     public override void ModifyNPCLoot(NPCLoot npcLoot)

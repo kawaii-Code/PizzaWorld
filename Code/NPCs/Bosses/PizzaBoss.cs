@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Projectiles;
 using PizzaWorld.Code.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -33,7 +34,6 @@ public class PizzaBoss : ModNPC
     {
         Instance = this;
         
-        //replace
         NPC.width = 65*3;
         NPC.height = 65*3;
 
@@ -45,13 +45,12 @@ public class PizzaBoss : ModNPC
         NPC.defense = 20;
         NPC.knockBackResist = 0f;
 
-        NPC.value = Item.buyPrice(gold: 10);
-
         NPC.lavaImmune = true;
         NPC.noTileCollide = true;
         NPC.noGravity = true;
-        
-        NPC.boss = true;
+
+        NPC.HitSound = SoundID.NPCHit12;
+        NPC.DeathSound = new SoundStyle("PizzaWorld/Sounds/HochuPizzu");
 
         _currentBossAI = new FirstBossStageAI(NPC);
         _currentBossAI.Start();

@@ -19,6 +19,9 @@ public class ShroomMutant : ModNPC
         NPC.CloneDefaults(NPCID.ZombieMushroom);
         AIType = NPCID.ZombieMushroom;
         AnimationType = NPCID.ZombieMushroom;
+        
+        NPC.HitSound = SoundID.NPCHit9;
+        NPC.DeathSound = SoundID.NPCDeath21;
     }
 
     public override void ModifyNPCLoot(NPCLoot npcLoot)

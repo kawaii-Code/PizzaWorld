@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using PizzaWorld.Code.Items.Food;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,5 +34,13 @@ public class PizzaHelmet : ModItem
     {
         return (head.type == ModContent.ItemType<PizzaHelmet>() && legs.type == ModContent.ItemType<PizzaGreaves>() &&
                 body.type == ModContent.ItemType<PizzaBreastplate>());
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddRecipeGroup(RecipeGroupID.IronBar, 3)
+            .AddIngredient<Margherita>()
+            .AddTile(TileID.Furnaces);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using PizzaWorld.Code.Items.Food;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,7 +13,7 @@ public class PizzaBreastplate : ModItem
         Item.width = 18;
         Item.height = 18;
 
-        Item.value = Terraria.Item.buyPrice(platinum:1, gold: 1);
+        Item.value = Item.buyPrice(platinum:1, gold: 1);
         Item.rare = ItemRarityID.Blue;
 
         Item.defense = 6;
@@ -22,5 +23,13 @@ public class PizzaBreastplate : ModItem
     {
         player.buffImmune[BuffID.Cursed] = true;
         player.AddBuff(BuffID.Honey, 99999 * 60, quiet: true);
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddRecipeGroup(RecipeGroupID.IronBar, 3)
+            .AddIngredient<Margherita>(2)
+            .AddTile(TileID.Furnaces);
     }
 }

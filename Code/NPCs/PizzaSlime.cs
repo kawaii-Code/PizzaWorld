@@ -20,6 +20,8 @@ public class PizzaSlime : ModNPC
         NPC.CloneDefaults(NPCID.LavaSlime);
         AnimationType = NPCID.BlueSlime;
         AIType = NPCID.BlueSlime;
+
+        NPC.DeathSound = SoundID.NPCDeath64;
     }
 
     public override void ModifyNPCLoot(NPCLoot npcLoot)

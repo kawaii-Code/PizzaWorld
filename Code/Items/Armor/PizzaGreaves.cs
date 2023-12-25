@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using PizzaWorld.Code.Items.Food;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -21,5 +22,13 @@ public class PizzaGreaves : ModItem
     public override void UpdateEquip(Player player)
     {
         player.AddBuff(BuffID.Gravitation, 60 * 99999 , quiet: true);
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddRecipeGroup(RecipeGroupID.IronBar, 3)
+            .AddIngredient<Margherita>()
+            .AddTile(TileID.Furnaces);
     }
 }
