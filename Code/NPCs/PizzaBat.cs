@@ -25,11 +25,7 @@ public class PizzaBat : ModNPC
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(new CoinsRule(Price.Copper(50), true));
-        npcLoot.Add(new CommonDrop(ModContent.ItemType<BasicPizza>(), 50))
-            .OnFailedRoll(new CommonDrop(ModContent.ItemType<Champignon>(), 35))
-            .OnFailedRoll(new CommonDrop(ModContent.ItemType<FourCheeses>(), 25))
-            .OnFailedRoll(new CommonDrop(ModContent.ItemType<Napoletana>(), 15))
-            .OnFailedRoll(new CommonDrop(ModContent.ItemType<Barbeque>(), 5));
+        npcLoot.Add(new CommonDrop(ModContent.ItemType<FourCheeses>(), 4));
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)

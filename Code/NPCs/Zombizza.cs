@@ -27,15 +27,16 @@ public class Zombizza : ModNPC
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(new CoinsRule(Price.Silver(1), true));
-        npcLoot.Add(new CommonDrop(ModContent.ItemType<BasicPizza>(), 50))
-            .OnFailedRoll(new CommonDrop(ModContent.ItemType<Champignon>(), 35))
-            .OnFailedRoll(new CommonDrop(ModContent.ItemType<FourCheeses>(), 25))
-            .OnFailedRoll(new CommonDrop(ModContent.ItemType<Napoletana>(), 15))
-            .OnFailedRoll(new CommonDrop(ModContent.ItemType<Barbeque>(), 5));
+        npcLoot.Add(new CommonDrop(ModContent.ItemType<BasicPizza>(), 3));
+        npcLoot.Add(new SequentialRulesRule(4, 
+            new CommonDrop(ModContent.ItemType<BasicPizza>(), 4),
+            new CommonDrop(ModContent.ItemType<Barbeque>(), 6),
+            new CommonDrop(ModContent.ItemType<Napoletana>(), 8)
+        ));
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return Main.player[Main.myPlayer].InModBiome<PizzaBiome>() ? 0.2f : 0.0f;
+        return !Main.dayTime && Main.player[Main.myPlayer].InModBiome<PizzaBiome>() ? 0.45f : 0.0f;
     }
 }
