@@ -28,12 +28,6 @@ public class WorldGeneration : ModSystem
 
     public override void PostUpdateInput()
     {
-        if (KeyDown(Keys.P))
-        {
-            PizzaWorld.SpawnNPC<PizzaBoss>();
-            Debug.Log("Spawned");
-        }
-
         if (KeyDown(Keys.N))
         {
             PizzaWorld.SpawnItem<Napoletana>((int)(Main.player[Main.myPlayer].Center.X + 10f) ,(int)(Main.player[Main.myPlayer].Center.Y ));
