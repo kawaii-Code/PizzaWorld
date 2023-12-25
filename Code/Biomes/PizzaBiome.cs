@@ -24,7 +24,6 @@ public class PizzaBiomeSurfaceBackgroundStyle : ModSurfaceBackgroundStyle
     public override void Load()
     {
         BackgroundTextureLoader.AddBackgroundTexture(Mod, "PizzaWorld/Assets/Textures/PizzaBiomeClose");
-        BackgroundTextureLoader.AddBackgroundTexture(Mod, "PizzaWorld/Assets/Textures/PizzaBiomeMid");
         BackgroundTextureLoader.AddBackgroundTexture(Mod, "PizzaWorld/Assets/Textures/PizzaBiomeFar");
     }
 
@@ -50,11 +49,6 @@ public class PizzaBiomeSurfaceBackgroundStyle : ModSurfaceBackgroundStyle
     public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
     {
         return BackgroundTextureLoader.GetBackgroundSlot("PizzaWorld/Assets/Textures/PizzaBiomeClose");
-    }
-
-    public override int ChooseMiddleTexture()
-    {
-        return BackgroundTextureLoader.GetBackgroundSlot("PizzaWorld/Assets/Textures/PizzaBiomeMid");
     }
 
     public override int ChooseFarTexture()

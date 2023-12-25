@@ -117,6 +117,16 @@ Items: {
 		DisplayName: Барбекю
 		Tooltip: Съешь кабанчика!
 	}
+
+	Margherita: {
+		DisplayName: Margherita
+		Tooltip: ""
+	}
+
+	PizzaBossSpawner: {
+		DisplayName: Pizza Boss Spawner
+		Tooltip: ""
+	}
 }
 
 Buffs: {
