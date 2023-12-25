@@ -228,6 +228,7 @@ NPCs: {
 	PizzaBird.DisplayName: Пицца Птица
 	PizzaRabbit.DisplayName: Пицца Кролик
 	PizzaFish.DisplayName: Пицца Рыба
+	ShroomMutant.DisplayName: Грибной Мутант
 	PizzaBat.DisplayName: Пиццевая Летучая Мышь
 	PizzaBoss.DisplayName: ПОМЕНЯЙ МЕНЯ!
 }
