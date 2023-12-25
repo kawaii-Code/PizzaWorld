@@ -34,8 +34,7 @@ public class PizzaBossSpawner : ModItem
 
     public override bool CanUseItem(Player player)
     {
-        bool a = player.InModBiome<PizzaBiome>() && !NPC.AnyNPCs(ModContent.NPCType<PizzaBoss>());
-        return a;
+        return player.InModBiome<PizzaBiome>() && !NPC.AnyNPCs(ModContent.NPCType<PizzaBoss>());
     }
 
     public override void AddRecipes()

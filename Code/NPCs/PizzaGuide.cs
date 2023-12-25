@@ -9,6 +9,7 @@ using Terraria.ModLoader.IO;
 
 namespace PizzaWorld.Code.NPCs;
 
+[AutoloadHead]
 public class PizzaGuide : ModNPC
 {
     private string[] _pizzaTrivia;
@@ -102,6 +103,7 @@ public class PizzaGuide : ModNPC
 
     public override bool CanTownNPCSpawn(int numTownNPCs)
     {
+        return false;
         for (int i = 0; i < Main.maxPlayers; i++)
         {
             Player player = Main.player[i];
