@@ -66,7 +66,7 @@ internal class ThirdBossStageAI : BossAI
         if (NPC.ai[2] > _bombReleaseDelay)
         {
             var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]),
-                NPC.position + new Vector2(0, 30), Vector2.Zero, ProjectileID.Boulder, 200, 20);
+                new Vector2(Main.player[NPC.target].position.X, NPC.position.Y - 30), Vector2.Zero, ProjectileID.Boulder, 200, 20);
             
             NPC.ai[2] = 0;
         }

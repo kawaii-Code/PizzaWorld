@@ -26,14 +26,6 @@ public class WorldGeneration : ModSystem
         }
     }
 
-    public override void PostUpdateInput()
-    {
-        if (KeyDown(Keys.N))
-        {
-            PizzaWorld.SpawnItem<Napoletana>((int)(Main.player[Main.myPlayer].Center.X + 10f) ,(int)(Main.player[Main.myPlayer].Center.Y ));
-        }
-    }
-
     private bool KeyDown(Keys keys)
     {
         return Main.keyState.IsKeyDown(keys) && Main.oldKeyState.IsKeyUp(keys);

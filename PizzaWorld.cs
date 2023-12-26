@@ -105,8 +105,6 @@ public class PizzaWorld : Mod
 
     private static void SpawnItemForServer(int type, int netId, int spawnX, int spawnY)
     {
-        Debug.Log("Spawn item" );
-
         var myPlayer = Main.player[Main.myPlayer];
         
         /*var spawnedId= Item.NewItem(new EntitySource_Loot(Main.npc[ModContent.NPCType<PizzaBoss>()]), new Vector2(spawnX, spawnY),
