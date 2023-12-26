@@ -48,8 +48,18 @@ public class PizzaBoss : ModNPC
 
     public override void AI()
     {
-        if(Main.netMode == NetmodeID.MultiplayerClient)
+        if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
+        {
+            NPC.TargetClosest();
+        }
+
+        Player player = Main.player[NPC.target];
+        if (player.dead)
+        {
+            NPC.velocity.Y -= 0.04f;
+            NPC.EncourageDespawn(10);
             return;
+        }
 
         NPC.ai[0]++;
         _currentBossAI.Update();

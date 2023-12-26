@@ -18,7 +18,8 @@ public class PizzaBossProjectile : ModProjectile
     {
         Projectile.width = 34;
         Projectile.height = 26;
-        Projectile.friendly = true;
+        Projectile.friendly = false;
+        Projectile.hostile = true;
         Projectile.ignoreWater = true;
 
         Projectile.tileCollide = false;
@@ -26,7 +27,7 @@ public class PizzaBossProjectile : ModProjectile
         Projectile.DamageType = DamageClass.Magic;
         Projectile.aiStyle = -1;
         Projectile.penetrate = -1;
-        this.Projectile.damage = 20;
+        Projectile.damage = 20;
 
         _currentTarget = PizzaBoss.Instance.CurrentBossAI.CurrentProjectileTarget;
     }

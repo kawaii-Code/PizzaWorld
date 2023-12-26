@@ -26,9 +26,6 @@ public class PizzaProjectile : ModProjectile
         Projectile.ai[0]++;
         if(Projectile.ai[0] < 60f)
         {
-            Projectile.velocity *= 1.01f; 
-        } else
-        {
             Projectile.velocity *= 1.05f;
             if(Projectile.ai[0] >= 180)
             {

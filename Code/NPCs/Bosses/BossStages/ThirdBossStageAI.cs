@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using PizzaWorld.Code.Items.Food;
 using PizzaWorld.Code.Utilities;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace PizzaWorld.Code.NPCs.Bosses.BossStages;
 
@@ -44,12 +47,13 @@ internal class ThirdBossStageAI : BossAI
         if (NPC.ai[2] > _bombReleaseDelay && _pizzaDropCounter <= 15)
         {
             _pizzaDropCounter++;
-            Debug.Log("Pizza Drop");
 
-            //Item.NewItem(new EntitySource_Loot(Main.item[ItemID.Pizza]),(int)NPC.Center.X , (int)NPC.Center.Y , 32, 16, ItemID.Pizza, 1);
-            
-            //NPC.DropItemInstanced(NPC.Center + new Vector2(0, 30), new Vector2(20, 20), ItemID.Pizza);
-            
+            SoundEngine.PlaySound(SoundID.NPCDeath64);
+            Item.NewItem(
+                new EntitySource_Loot(Main.npc[NPC.whoAmI]),(int)NPC.Center.X , (int)NPC.Center.Y,
+                32, 16,
+                ModContent.ItemType<Margherita>(), 1);
+
             NPC.ai[2] = 0;
             return;
         }

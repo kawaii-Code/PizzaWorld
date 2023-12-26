@@ -3,6 +3,7 @@ using Basic.Reference.Assemblies;
 using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Projectiles;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -62,17 +63,13 @@ internal class SecondBossStageAI : BossAI
                 }
 
                 CurrentProjectileTarget = player;
-                
-                int projectileId = Projectile.NewProjectile(new EntitySource_BossSpawn(Main.player[NPC.target]), NPC.Center + new Vector2(NPC.direction * 20, 0),
-                    Vector2.Zero, ModContent.ProjectileType<PizzaBossProjectile>(), Damage, 20);
+
+                SoundEngine.PlaySound(SoundID.NPCDeath13);
+                int projectileId = Projectile.NewProjectile(new EntitySource_BossSpawn(Main.npc[NPC.whoAmI]), NPC.Center + new Vector2(NPC.direction * 20, 0),
+                    Vector2.Zero, ModContent.ProjectileType<PizzaBossProjectile>(), Damage, 20, NPC.whoAmI);
 
                 Projectile created = Main.projectile[projectileId];
-                
-                created.tileCollide = false;
-                created.friendly = false;
-                created.damage = 20;
-                created.hostile = true;
-            
+
                 NPC.ai[2] = 0;
             }
         }
