@@ -70,7 +70,7 @@ internal class ThirdBossStageAI : BossAI
             _bombDropCounter++;
             
             var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]),
-                new Vector2(Main.player[NPC.target].position.X, NPC.position.Y - 30), Vector2.Zero, ProjectileID.Boulder, 200, 20);
+                new Vector2(Main.player[NPC.target].position.X, NPC.position.Y - 30), Vector2.Zero, ProjectileID.Boulder, 100, 20);
             
             NPC.ai[2] = 0;
             return;
