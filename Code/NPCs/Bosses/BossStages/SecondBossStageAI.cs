@@ -2,6 +2,7 @@
 using Basic.Reference.Assemblies;
 using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Projectiles;
+using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -41,14 +42,20 @@ internal class SecondBossStageAI : BossAI
     public override void Update()
     {
         _currentTarget = Main.player[NPC.target];
-        NPC.TargetClosest();
 
         if (Vector2.Distance(NPC.Center, _currentTarget.Center) > 300)
+        {
             MoveTowards(_currentTarget.Center);
+        }
         else
         {
             NPC.ai[1]++;
             Floating();
+        }
+
+        if (Main.netMode == NetmodeID.MultiplayerClient)
+        {
+            return;
         }
 
         NPC.ai[2]++;
@@ -57,7 +64,7 @@ internal class SecondBossStageAI : BossAI
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
-                if (!player.active)
+                if (!player.active || player.dead)
                 {
                     continue;
                 }
@@ -65,10 +72,11 @@ internal class SecondBossStageAI : BossAI
                 CurrentProjectileTarget = player;
 
                 SoundEngine.PlaySound(SoundID.NPCDeath13);
-                int projectileId = Projectile.NewProjectile(new EntitySource_BossSpawn(Main.npc[NPC.whoAmI]), NPC.Center + new Vector2(NPC.direction * 20, 0),
-                    Vector2.Zero, ModContent.ProjectileType<PizzaBossProjectile>(), Damage, 20, NPC.whoAmI);
-
-                Projectile created = Main.projectile[projectileId];
+                Projectile p = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(),
+                    NPC.Center + new Vector2(NPC.direction * 20, 0),
+                    Vector2.Zero, ModContent.ProjectileType<PizzaBossProjectile>(),
+                    Damage, 20);
+                p.ai[2] = i + 1;
 
                 NPC.ai[2] = 0;
             }

@@ -51,11 +51,13 @@ public class PizzaBoss : ModNPC
         if (NPC.target < 0 || NPC.target == 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
         {
             NPC.TargetClosest();
+            Debug.Log(NPC.target);
         }
 
         Player player = Main.player[NPC.target];
         if (player.dead)
         {
+            Debug.Log("Hello");
             NPC.velocity.Y -= 0.04f;
             NPC.EncourageDespawn(10);
             return;
@@ -72,8 +74,6 @@ public class PizzaBoss : ModNPC
         if (!NPC.AnyNPCs(ModContent.NPCType<PizzaDeliveryGuy>()))
         {
             Debug.Log("Fuck you");
-            Point playerPosition = Main.player[Main.myPlayer].position.ToTileCoordinates();
-            PizzaWorld.SpawnNPC<PizzaDeliveryGuy>(playerPosition.X, playerPosition.Y);
         }
     }
 

@@ -39,8 +39,6 @@ public class PizzaStaff : ModItem
 
     public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
     {
-        Debug.Log("Cum");
-        
         if (hit.Crit && Main.rand.NextBool())
         {
             target.AddBuff(BuffID.Confused, 60 * 3);

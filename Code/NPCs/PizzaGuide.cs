@@ -45,7 +45,6 @@ public class PizzaGuide : ModNPC
         _pizzaTrivia = new[]
         {
             Localized("Trivia.RandomPizzaTrivia1"),
-            Localized("Trivia.RandomPizzaTrivia2"),
             Localized("Trivia.RandomPizzaTrivia3"),
             Localized("Trivia.RandomPizzaTrivia4"),
             Localized("Trivia.RandomPizzaTrivia5"),

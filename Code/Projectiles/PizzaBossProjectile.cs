@@ -4,13 +4,15 @@ using PizzaWorld.Code.NPCs.Bosses;
 using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace PizzaWorld.Code.Projectiles;
 
 public class PizzaBossProjectile : ModProjectile
 {
-    private Player _currentTarget;
+    public static int GigaCrutch = 0;
+    public Player CurrentTarget;
 
     private float _projectileLifetime = 300;
     
@@ -18,7 +20,6 @@ public class PizzaBossProjectile : ModProjectile
     {
         Projectile.width = 34;
         Projectile.height = 26;
-        Projectile.friendly = false;
         Projectile.hostile = true;
         Projectile.ignoreWater = true;
 
@@ -28,12 +29,27 @@ public class PizzaBossProjectile : ModProjectile
         Projectile.aiStyle = -1;
         Projectile.penetrate = -1;
         Projectile.damage = 20;
-
-        _currentTarget = PizzaBoss.Instance.CurrentBossAI.CurrentProjectileTarget;
     }
 
     public override void AI()
     {
+        if (CurrentTarget == null)
+        {
+            int playerCount = 0;
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                if (Main.player[i].active)
+                {
+                    playerCount++;
+                }
+            }
+
+            if (playerCount != 0)
+            {
+                CurrentTarget = Main.player[GigaCrutch % playerCount];
+                GigaCrutch++;
+            }
+        }
         Projectile.ai[0]++;
 
         if (Projectile.ai[0] > _projectileLifetime)
@@ -41,21 +57,22 @@ public class PizzaBossProjectile : ModProjectile
             Projectile.Kill();
             return;
         }
-         
-        if(_currentTarget == null)
+
+        if(CurrentTarget == null || !CurrentTarget.active ||
+           CurrentTarget.dead)
             return;
-        
+
         MoveProjectile();
     }
 
     private void MoveProjectile()
     {
-        MoveTowardsProjectile(Projectile, _currentTarget.Center, 13);
+        MoveTowardsProjectile(Projectile, CurrentTarget.Center, 13);
     }
 
     public override void OnHitPlayer(Player target, Player.HurtInfo info)
     {
-        if (target == _currentTarget)
+        if (target == CurrentTarget)
             Projectile.Kill();
     }
 

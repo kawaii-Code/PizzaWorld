@@ -85,8 +85,6 @@ public class PizzaWorld : Mod
         packet.Write(x);
         packet.Write(y);
         packet.Send();
-        
-        Debug.Log("Send packet");
     }
 
     private static void SpawnNPCForServer(int type, int netId, int spawnX, int spawnY)
@@ -116,7 +114,6 @@ public class PizzaWorld : Mod
 
         var spawnedItem = Main.item[id];
         
-        Debug.Log("Spawn item" );
         if (netId < 0)
         {
             spawnedItem.SetDefaults(netId);
@@ -129,4 +126,3 @@ public enum Message : byte
     SpawnNPC = 0,
     SpawnItem = 1
 }
-
