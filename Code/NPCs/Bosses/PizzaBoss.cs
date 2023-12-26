@@ -57,7 +57,6 @@ public class PizzaBoss : ModNPC
         Player player = Main.player[NPC.target];
         if (player.dead)
         {
-            Debug.Log("Hello");
             NPC.velocity.Y -= 0.04f;
             NPC.EncourageDespawn(10);
             return;
@@ -89,7 +88,9 @@ public class PizzaBoss : ModNPC
                 return;
 
             _currentBossAI = new SecondBossStageAI(NPC);
-            Debug.Log("Boss : Нет! Тебе меня не победить АХАХАХА (лох)", Color.Purple);
+            
+            if(Main.netMode != NetmodeID.MultiplayerClient)
+                Debug.Log("Boss : Нет! Тебе меня не победить АХАХАХА (лох)", Color.Purple);
         }
         else if (NPC.life <= 1000)
         {
@@ -101,7 +102,9 @@ public class PizzaBoss : ModNPC
             this.NPC.AddBuff(BuffID.Regeneration, 200000);
             this.NPC.AddBuff(BuffID.Honey, 200000);
             this.NPC.AddBuff(BuffID.Honey, 200000);
-            Debug.Log("Boss : Твоя взяля. Я сдаюсь. Не убивай меня... Возьми лучше это", Color.Aqua);
+            
+            if(Main.netMode != NetmodeID.MultiplayerClient)
+                Debug.Log("Boss : Твоя взяля. Я сдаюсь. Не убивай меня... Возьми лучше это", Color.Aqua);
         }
     }
 }
