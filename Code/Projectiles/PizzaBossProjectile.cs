@@ -14,7 +14,7 @@ public class PizzaBossProjectile : ModProjectile
     public static int GigaCrutch = 0;
     public Player CurrentTarget;
 
-    private float _projectileLifetime = 150;
+    private float _projectileLifetime = 170;
     
     public override void SetDefaults()
     {
@@ -28,7 +28,7 @@ public class PizzaBossProjectile : ModProjectile
         Projectile.DamageType = DamageClass.Magic;
         Projectile.aiStyle = -1;
         Projectile.penetrate = -1;
-        Projectile.damage = 15;
+        Projectile.damage = 13;
     }
 
     public override void AI()

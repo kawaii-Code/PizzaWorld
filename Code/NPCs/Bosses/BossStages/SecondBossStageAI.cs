@@ -13,7 +13,7 @@ namespace PizzaWorld.Code.NPCs.Bosses.BossStages;
 
 internal class SecondBossStageAI : BossAI
 {
-    private float _projectileReleaseDelay = 100;
+    private float _projectileReleaseDelay = 140;
 
     private Player _currentTarget;
 
@@ -25,7 +25,7 @@ internal class SecondBossStageAI : BossAI
     public override bool IsNeedTransit { get; protected set; }
     public override int StageID { get; protected set; } = 2;
 
-    protected override int Damage { get; set; } = 20;
+    protected override int Damage { get; set; } = 18;
     protected override float Speed { get; set; } = 8f;
     protected override float RushSpeed { get; set; }
     public SecondBossStageAI(NPC npc) : base(npc) {}
