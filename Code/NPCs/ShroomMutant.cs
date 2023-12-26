@@ -17,6 +17,9 @@ public class ShroomMutant : ModNPC
     public override void SetDefaults()
     {
         NPC.CloneDefaults(NPCID.ZombieMushroom);
+        NPC.life = NPC.lifeMax = 120;
+        NPC.damage = 25;
+        NPC.defense = 8;
         AIType = NPCID.ZombieMushroom;
         AnimationType = NPCID.ZombieMushroom;
         
@@ -26,6 +29,7 @@ public class ShroomMutant : ModNPC
 
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
+        npcLoot.Add(new CommonDrop(ModContent.ItemType<BasicPizza>(), 6));
         npcLoot.Add(new CommonDrop(ModContent.ItemType<Champignon>(), 4));
     }
 

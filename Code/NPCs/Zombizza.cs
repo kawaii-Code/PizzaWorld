@@ -21,6 +21,10 @@ public class Zombizza : ModNPC
     public override void SetDefaults()
     {
         NPC.CloneDefaults(NPCID.Zombie);
+        NPC.life += 100;
+        NPC.lifeMax += 100;
+        NPC.damage += 15;
+        NPC.defense += 8;
         AnimationType = NPCID.Zombie;
 
         NPC.HitSound = SoundID.NPCHit1;
@@ -30,16 +34,12 @@ public class Zombizza : ModNPC
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(new CoinsRule(Price.Silver(1), true));
-        npcLoot.Add(new CommonDrop(ModContent.ItemType<BasicPizza>(), 3));
-        npcLoot.Add(new SequentialRulesRule(4, 
-            new CommonDrop(ModContent.ItemType<BasicPizza>(), 4),
-            new CommonDrop(ModContent.ItemType<Barbeque>(), 6),
-            new CommonDrop(ModContent.ItemType<Napoletana>(), 8)
-        ));
+        npcLoot.Add(new CommonDrop(ModContent.ItemType<BasicPizza>(), 6));
+        npcLoot.Add(new CommonDrop(ModContent.ItemType<Barbeque>(), 2));
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return !Main.dayTime && Main.player[Main.myPlayer].InModBiome<PizzaBiome>() ? 0.45f : 0.0f;
+        return !Main.dayTime && spawnInfo.Player.InModBiome<PizzaBiome>() ? 0.45f : 0.0f;
     }
 }

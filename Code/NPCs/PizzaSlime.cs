@@ -27,6 +27,7 @@ public class PizzaSlime : ModNPC
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(new CoinsRule(Price.Copper(50)));
+        npcLoot.Add(new CommonDrop(ModContent.ItemType<BasicPizza>(), 6));
         npcLoot.Add(new CommonDrop(ModContent.ItemType<Napoletana>(), 4));
     }
 

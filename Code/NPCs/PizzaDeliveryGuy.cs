@@ -15,6 +15,7 @@ namespace PizzaWorld.Code.NPCs;
 [AutoloadHead]
 public class PizzaDeliveryGuy : ModNPC
 {
+    public static bool WasPizzaBossKilled;
     private Profiles.StackedNPCProfile _profile;
 
     public override void SetStaticDefaults()
@@ -98,6 +99,11 @@ public class PizzaDeliveryGuy : ModNPC
             .Add<PizzaWing>();
         shop.FinishSetup();
         shop.Register();
+    }
+
+    public override bool CanTownNPCSpawn(int numTownNPCs)
+    {
+        return WasPizzaBossKilled;
     }
 
     public override void SetChatButtons(ref string button, ref string button2)

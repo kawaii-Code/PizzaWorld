@@ -68,13 +68,17 @@ public class PizzaBoss : ModNPC
         CheckStageTransit();
     }
 
+    public override void OnKill()
+    {
+        if (!NPC.AnyNPCs(ModContent.NPCType<PizzaDeliveryGuy>()))
+        {
+            PizzaWorld.SpawnNPC<PizzaDeliveryGuy>();
+        }
+    }
+
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(new CommonDrop(ModContent.ItemType<Margherita>(), 1, 10, 15));
-        if (!NPC.AnyNPCs(ModContent.NPCType<PizzaDeliveryGuy>()))
-        {
-            Debug.Log("Fuck you");
-        }
     }
 
     private void CheckStageTransit()
