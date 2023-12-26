@@ -1,7 +1,6 @@
 using System.IO;
 using Microsoft.Xna.Framework;
 using PizzaWorld.Code.Items.Food;
-using PizzaWorld.Code.NPCs.Bosses;
 using PizzaWorld.Code.Utilities;
 using Terraria;
 using Terraria.DataStructures;
@@ -50,6 +49,8 @@ public class PizzaWorld : Mod
     public static void SpawnNPC<T>(int spawnX = -1, int spawnY = -1)
         where T : ModNPC
     {
+        Debug.Log(typeof(T), Color.Blue);
+        
         Player player = Main.player[0];
         int x = spawnX == -1 ? (int)player.Bottom.X + player.direction * 200 : spawnX;
         int y = spawnY == -1 ? (int)player.Bottom.Y : spawnY;
@@ -113,7 +114,7 @@ public class PizzaWorld : Mod
             new Vector2(20, 20), ModContent.GetModItem(ModContent.ItemType<Napoletana>()).Item);*/
         
         //np.DropItemInstanced(np.Center + new Vector2(0, 30), new Vector2(20, 20), ModContent.ItemType<Napoletana>());
-
+        
         int id = myPlayer.QuickSpawnItem(new EntitySource_Film(), ModContent.ItemType<Napoletana>());
 
         var spawnedItem = Main.item[id];

@@ -46,9 +46,7 @@ internal class ThirdBossStageAI : BossAI
             _pizzaDropCounter++;
             Debug.Log("Pizza Drop");
 
-            //Item.NewItem(new EntitySource_Loot(Main.item[ItemID.Pizza]),(int)NPC.Center.X , (int)NPC.Center.Y , 32, 16, ItemID.Pizza, 1);
-            
-            //NPC.DropItemInstanced(NPC.Center + new Vector2(0, 30), new Vector2(20, 20), ItemID.Pizza);
+            PizzaWorld.SpawnNPC<PizzaItemNPC>((int)NPC.Center.X , (int)NPC.Center.Y);
             
             NPC.ai[2] = 0;
             return;

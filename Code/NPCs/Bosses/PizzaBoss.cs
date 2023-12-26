@@ -30,7 +30,7 @@ public class PizzaBoss : ModNPC
         NPC.aiStyle = -1;
         NPC.npcSlots = 5f;
 
-        NPC.lifeMax = 5000;
+        NPC.lifeMax = 6000;
         NPC.damage = 50;
         NPC.defense = 20;
         NPC.knockBackResist = 0f;
@@ -56,7 +56,7 @@ public class PizzaBoss : ModNPC
         CheckStageTransit();
     }
 
-    public override void ModifyNPCLoot(NPCLoot npcLoot)
+    /*public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(new CommonDrop(ModContent.ItemType<Margherita>(), 1, 10, 15));
         if (!NPC.AnyNPCs(ModContent.NPCType<PizzaDeliveryGuy>()))
@@ -65,11 +65,11 @@ public class PizzaBoss : ModNPC
             Point playerPosition = Main.player[Main.myPlayer].position.ToTileCoordinates();
             PizzaWorld.SpawnNPC<PizzaDeliveryGuy>(playerPosition.X, playerPosition.Y);
         }
-    }
+    }*/
 
     private void CheckStageTransit()
     {
-        if (this.NPC.life < 3500 && NPC.life > 700)
+        if (this.NPC.life < 4500 && NPC.life > 1700)
         {
             if(_currentBossAI.StageID == 2)
                 return;
@@ -77,7 +77,7 @@ public class PizzaBoss : ModNPC
             _currentBossAI = new SecondBossStageAI(NPC);
             Debug.Log("Boss : Нет! Тебе меня не победить АХАХАХА (лох)", Color.Purple);
         }
-        else if (NPC.life <= 700)
+        else if (NPC.life <= 1700)
         {
             if(_currentBossAI.StageID == 3)
                 return;
