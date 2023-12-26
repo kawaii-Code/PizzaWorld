@@ -76,6 +76,7 @@ internal class ThirdBossStageAI : BossAI
             return;
         }
         
-        this.NPC.dontTakeDamage = false;
+        if(NPC.ai[2] > 100)
+            this.NPC.dontTakeDamage = false;
     }
 }

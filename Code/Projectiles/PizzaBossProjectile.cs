@@ -14,7 +14,7 @@ public class PizzaBossProjectile : ModProjectile
     public static int GigaCrutch = 0;
     public Player CurrentTarget;
 
-    private float _projectileLifetime = 150;
+    private float _projectileLifetime = 173;
     
     public override void SetDefaults()
     {
@@ -67,7 +67,7 @@ public class PizzaBossProjectile : ModProjectile
 
     private void MoveProjectile()
     {
-        MoveTowardsProjectile(Projectile, CurrentTarget.Center, 13);
+        MoveTowardsProjectile(Projectile, CurrentTarget.Center, 10);
     }
 
     public override void OnHitPlayer(Player target, Player.HurtInfo info) => this.Projectile.Kill();
