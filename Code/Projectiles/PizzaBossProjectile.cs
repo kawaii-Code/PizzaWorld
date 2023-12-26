@@ -12,7 +12,7 @@ public class PizzaBossProjectile : ModProjectile
 {
     private Player _currentTarget;
 
-    private float _projectileLifetime = 100;
+    private float _projectileLifetime = 300;
     
     public override void SetDefaults()
     {
