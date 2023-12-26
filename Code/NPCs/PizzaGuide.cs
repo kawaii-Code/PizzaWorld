@@ -105,7 +105,7 @@ public class PizzaGuide : ModNPC
         for (int i = 0; i < Main.maxPlayers; i++)
         {
             Player player = Main.player[i];
-            if (player.active)
+            if (!player.active)
             {
                 continue;
             }

@@ -47,6 +47,9 @@ public class PizzaDeliveryGuy : ModNPC
         NPC.width = 18;
         NPC.height = 40;
 
+        AnimationType = NPCID.Guide;
+        AIType = NPCID.Guide;
+
         NPC.Happiness
             .SetBiomeAffection<PizzaBiome>(AffectionLevel.Love)
             .SetBiomeAffection<ForestBiome>(AffectionLevel.Like)

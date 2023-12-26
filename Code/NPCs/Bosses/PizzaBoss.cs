@@ -69,10 +69,7 @@ public class PizzaBoss : ModNPC
 
     public override void OnKill()
     {
-        if (!NPC.AnyNPCs(ModContent.NPCType<PizzaDeliveryGuy>()))
-        {
-            PizzaWorld.SpawnNPC<PizzaDeliveryGuy>();
-        }
+        PizzaDeliveryGuy.WasPizzaBossKilled = true;
     }
 
     public override void ModifyNPCLoot(NPCLoot npcLoot)

@@ -20,7 +20,7 @@ public class PizzaWing : ModItem
     {
         Item.width = 22;
         Item.height = 20;
-        Item.value = Price.Gold(50);
+        Item.value = Price.Gold(150);
         Item.rare = ItemRarityID.Green;
         Item.accessory = true;
     }
