@@ -242,7 +242,6 @@ NPCs: {
 	ShroomMutant.DisplayName: Грибной Мутант
 	PizzaBat.DisplayName: Пиццевая Летучая Мышь
 	PizzaBoss.DisplayName: ПОМЕНЯЙ МЕНЯ!
-	PizzaItemNPC.DisplayName: Pizza Item N P C
 }
 
 Projectiles: {
