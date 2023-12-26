@@ -19,8 +19,8 @@ internal class FirstBossStageAI : BossAI
     public override int StageID { get; protected set; } = 1;
 
     protected override int Damage { get; set; }
-    protected override float Speed { get; set; } = 9f;
-    protected override float RushSpeed { get; set; } = 12f;
+    protected override float Speed { get; set; } = 8f;
+    protected override float RushSpeed { get; set; } = 11f;
 
     public FirstBossStageAI(NPC npc) : base(npc) {}
     
@@ -69,7 +69,7 @@ internal class FirstBossStageAI : BossAI
         
         if (_currentTarget == null)
         {
-            //do smth if null target
+            //do smth if target is null
             return;
         }
 

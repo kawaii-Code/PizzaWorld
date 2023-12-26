@@ -14,7 +14,7 @@ public class PizzaBossProjectile : ModProjectile
     public static int GigaCrutch = 0;
     public Player CurrentTarget;
 
-    private float _projectileLifetime = 300;
+    private float _projectileLifetime = 150;
     
     public override void SetDefaults()
     {
@@ -28,7 +28,7 @@ public class PizzaBossProjectile : ModProjectile
         Projectile.DamageType = DamageClass.Magic;
         Projectile.aiStyle = -1;
         Projectile.penetrate = -1;
-        Projectile.damage = 20;
+        Projectile.damage = 15;
     }
 
     public override void AI()
@@ -70,11 +70,7 @@ public class PizzaBossProjectile : ModProjectile
         MoveTowardsProjectile(Projectile, CurrentTarget.Center, 13);
     }
 
-    public override void OnHitPlayer(Player target, Player.HurtInfo info)
-    {
-        if (target == CurrentTarget)
-            Projectile.Kill();
-    }
+    public override void OnHitPlayer(Player target, Player.HurtInfo info) => this.Projectile.Kill();
 
     private void MoveTowardsProjectile(Projectile projectile ,Vector2 targetCenter, float speed)
     {

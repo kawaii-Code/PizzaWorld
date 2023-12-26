@@ -16,6 +16,7 @@ internal class ThirdBossStageAI : BossAI
     private Player _currentTarget;
 
     private int _pizzaDropCounter;
+    private int _bombDropCounter;
     
     public override int MinLife { get; protected set; }
     public override bool IsNeedTransit { get; protected set; }
@@ -63,12 +64,18 @@ internal class ThirdBossStageAI : BossAI
 
         _pizzaDropCounter = 100;
         
-        if (NPC.ai[2] > _bombReleaseDelay)
+        if (NPC.ai[2] > _bombReleaseDelay && _bombDropCounter <= 7)
         {
+            NPC.dontTakeDamage = true;
+            _bombDropCounter++;
+            
             var created = Projectile.NewProjectileDirect(new EntitySource_BossSpawn(Main.player[NPC.target]),
                 new Vector2(Main.player[NPC.target].position.X, NPC.position.Y - 30), Vector2.Zero, ProjectileID.Boulder, 200, 20);
             
             NPC.ai[2] = 0;
+            return;
         }
+        
+        this.NPC.dontTakeDamage = false;
     }
 }

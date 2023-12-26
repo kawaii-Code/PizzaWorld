@@ -30,8 +30,8 @@ public class PizzaBoss : ModNPC
         NPC.aiStyle = -1;
         NPC.npcSlots = 5f;
 
-        NPC.lifeMax = 5000;
-        NPC.damage = 50;
+        NPC.lifeMax = 7000;
+        NPC.damage = 58;
         NPC.defense = 20;
         NPC.knockBackResist = 0f;
 
@@ -79,7 +79,7 @@ public class PizzaBoss : ModNPC
 
     private void CheckStageTransit()
     {
-        if (this.NPC.life < 3500 && NPC.life > 700)
+        if (this.NPC.life < 4000 && NPC.life > 1000)
         {
             if(_currentBossAI.StageID == 2)
                 return;
@@ -87,7 +87,7 @@ public class PizzaBoss : ModNPC
             _currentBossAI = new SecondBossStageAI(NPC);
             Debug.Log("Boss : Нет! Тебе меня не победить АХАХАХА (лох)", Color.Purple);
         }
-        else if (NPC.life <= 700)
+        else if (NPC.life <= 1000)
         {
             if(_currentBossAI.StageID == 3)
                 return;

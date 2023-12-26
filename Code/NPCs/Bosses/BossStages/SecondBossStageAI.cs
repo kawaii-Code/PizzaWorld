@@ -26,7 +26,7 @@ internal class SecondBossStageAI : BossAI
     public override int StageID { get; protected set; } = 2;
 
     protected override int Damage { get; set; } = 20;
-    protected override float Speed { get; set; } = 9f;
+    protected override float Speed { get; set; } = 8f;
     protected override float RushSpeed { get; set; }
     public SecondBossStageAI(NPC npc) : base(npc) {}
     
