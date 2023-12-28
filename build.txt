@@ -1,3 +1,3 @@
-displayName = Pizza Universe
-author = Punks
-version = 0.1
+displayName = Пицца-Мир
+author = Панки
+version = 1.0

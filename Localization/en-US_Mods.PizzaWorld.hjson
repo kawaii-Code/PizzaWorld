@@ -119,13 +119,13 @@ Items: {
 	}
 
 	Margherita: {
-		DisplayName: Margherita
-		Tooltip: ""
+		DisplayName: Маргарита
+		Tooltip: и Мастер
 	}
 
 	PizzaBossSpawner: {
-		DisplayName: Pizza Boss Spawner
-		Tooltip: ""
+		DisplayName: Подозрительная пицца
+		Tooltip: Что-то с ней не так...
 	}
 }
 
@@ -241,7 +241,7 @@ NPCs: {
 	PizzaFish.DisplayName: Пицца Рыба
 	ShroomMutant.DisplayName: Грибной Мутант
 	PizzaBat.DisplayName: Пиццевая Летучая Мышь
-	PizzaBoss.DisplayName: ПОМЕНЯЙ МЕНЯ!
+	PizzaBoss.DisplayName: Имперапицца
 }
 
 Projectiles: {
